@@ -13,6 +13,7 @@
 #include "Renderer/Model.h"
 #include "Renderer/Renderer.h"
 #include "Engine.h"
+#include "Renderer/Texture.h"
 
 #include <iostream>
 #include <vector>
@@ -24,6 +25,9 @@ int main(int argc, char* argv[]) {
 
     // Initialize Engine Systems
     errera::GetEngine().Initialize();
+
+    std::shared_ptr<errera::Texture> texture = std::make_shared<errera::Texture>();
+    texture->Load("Ghost Front.png", errera::GetEngine().GetRenderer());
 
     //Creates audio in the game
     errera::GetEngine().GetAudio().AddSound("unsc-engine.wav", "unsc-engine");
@@ -59,6 +63,8 @@ int main(int argc, char* argv[]) {
 
         errera::GetEngine().GetRenderer().SetColor(color.r, color.g, color.b);
         errera::GetEngine().GetRenderer().Clear(); // Clear the screen with black
+
+        errera::GetEngine().GetRenderer().DrawTexture(texture.get(), 30, 30);
 
         game->Draw(errera::GetEngine().GetRenderer());
 

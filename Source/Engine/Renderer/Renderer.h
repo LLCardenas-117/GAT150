@@ -4,6 +4,8 @@
 #include <SDL3_ttf/SDL_ttf.h>
 #include <iostream>
 
+#include "Texture.h"
+
 namespace errera {
 	class Renderer {
 	public:
@@ -27,6 +29,8 @@ namespace errera {
 
 		void DrawPoint(float x, float y);
 
+		void DrawTexture(Texture* texture, float x, float y);
+
 		int GetWidth() const { return _width; }
 		int GetHeight() const { return _height; }
 
@@ -38,5 +42,6 @@ namespace errera {
 		int _height{ 0 };
 
 		friend class Text;
+		friend class Texture;
 	};
 }

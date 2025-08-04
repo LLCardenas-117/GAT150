@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "Texture.h"
 
 namespace errera {
     bool Renderer::Initialize() {
@@ -65,5 +66,16 @@ namespace errera {
     }
     void Renderer::DrawPoint(float x, float y) {
 		SDL_RenderPoint(_renderer, x, y);
+    }
+    void Renderer::DrawTexture(Texture* texture, float x, float y) {
+        vec2 size = texture->GetSize();
+
+        SDL_FRect destRect;
+        destRect.x = x;
+        destRect.y = y;
+        destRect.w = size.x;
+        destRect.h = size.y;
+
+        SDL_RenderTexture(_renderer, texture->_texture, NULL, &destRect);
     }
 }
