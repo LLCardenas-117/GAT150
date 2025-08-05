@@ -37,9 +37,6 @@ private:
 	float _ringChargeTimer{ 0 };
 	float _stateTimer{ 0 };
 
-	std::shared_ptr<errera::Font> _titleFont;
-	std::shared_ptr<errera::Font> _uiFont;
-
 	std::unique_ptr<errera::Text> _titleText;
 	std::unique_ptr<errera::Text> _scoreText;
 	std::unique_ptr<errera::Text> _livesText;

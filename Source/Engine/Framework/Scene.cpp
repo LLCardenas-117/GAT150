@@ -1,7 +1,7 @@
 #include "Scene.h"
 #include "Actor.h"
-#include "../Renderer/Renderer.h"
-#include "../Core/StringHelper.h"
+#include "Renderer/Renderer.h"
+#include "Core/StringHelper.h"
 
 namespace errera {
 	/// <summary>

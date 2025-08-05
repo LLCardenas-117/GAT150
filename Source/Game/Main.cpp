@@ -12,8 +12,9 @@
 #include "Math/Vector3.h"
 #include "Renderer/Model.h"
 #include "Renderer/Renderer.h"
-#include "Engine.h"
 #include "Renderer/Texture.h"
+#include "Resources/ResourceManager.h"
+#include "Engine.h"
 
 #include <iostream>
 #include <vector>
@@ -26,8 +27,9 @@ int main(int argc, char* argv[]) {
     // Initialize Engine Systems
     errera::GetEngine().Initialize();
 
-    std::shared_ptr<errera::Texture> texture = std::make_shared<errera::Texture>();
-    texture->Load("Ghost Front.png", errera::GetEngine().GetRenderer());
+    /*std::shared_ptr<errera::Texture> texture = std::make_shared<errera::Texture>();
+    texture->Load("Ghost Front.png", errera::GetEngine().GetRenderer());*/
+    auto texture = errera::ResourceManager::Instance().Get<errera::Texture>("Ghost Front.png", errera::GetEngine().GetRenderer());
 
     //Creates audio in the game
     errera::GetEngine().GetAudio().AddSound("unsc-engine.wav", "unsc-engine");

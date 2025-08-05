@@ -15,22 +15,17 @@
 #include "Input/InputSystem.h"
 #include "GameData.h"
 #include "ringBlast.h"
+#include "Resources/ResourceManager.h"
 
 #include <vector>
 
 bool SpaceGame::Initialize() {
     _scene = std::make_unique<errera::Scene>(this);
 
-    _titleFont = std::make_shared<errera::Font>();
-    _titleFont->Load("arcadeclassic.ttf", 128);
-
-    _uiFont = std::make_shared<errera::Font>();
-    _uiFont->Load("arcadeclassic.ttf", 48);
-
-    _titleText = std::make_unique<errera::Text>(_titleFont);
-    _scoreText = std::make_unique<errera::Text>(_uiFont);
-    _livesText = std::make_unique<errera::Text>(_uiFont);
-    _ringChargeText = std::make_unique<errera::Text>(_uiFont);
+    _titleText = std::make_unique<errera::Text>(errera::ResourceManager::Instance().Get<errera::Font>("arcadeclassic_title.ttf", 128.0f));
+    _scoreText = std::make_unique<errera::Text>(errera::ResourceManager::Instance().Get<errera::Font>("arcadeclassic_ui.ttf", 48.0f));
+    _livesText = std::make_unique<errera::Text>(errera::ResourceManager::Instance().Get<errera::Font>("arcadeclassic_ui.ttf", 48.0f));
+    _ringChargeText = std::make_unique<errera::Text>(errera::ResourceManager::Instance().Get<errera::Font>("arcadeclassic_ui.ttf", 48.0f));
 
     return true;
 }
@@ -142,12 +137,12 @@ void SpaceGame::Update(float dt) {
 void SpaceGame::Draw(errera::Renderer& renderer) {
     if (_gameState == GameState::Title) {
         _titleText->Create(renderer, "Halo Space", errera::vec3{ 0, 1, 0 });
-        _titleText->Draw(renderer, renderer.GetHeight() / 3, renderer.GetWidth() / 3);
+        _titleText->Draw(renderer, (float)renderer.GetHeight() / 3, (float)renderer.GetWidth() / 3);
     }
 
     if (_gameState == GameState::GameOver) {
         _titleText->Create(renderer, "GAME OVER", errera::vec3{ 1, 0, 0 });
-        _titleText->Draw(renderer, renderer.GetHeight() / 3, renderer.GetWidth() / 3);
+        _titleText->Draw(renderer, (float)renderer.GetHeight() / 3, (float)renderer.GetWidth() / 3);
     }
 
 	_scoreText->Create(renderer, "SCORE " + std::to_string(_score), errera::vec3{1, 1, 1});
@@ -157,7 +152,7 @@ void SpaceGame::Draw(errera::Renderer& renderer) {
     _livesText->Draw(renderer,(float)(renderer.GetWidth() - 200), 10);
 
     _ringChargeText->Create(renderer, "Ring Charges " + std::to_string(_ring), errera::vec3{ 1, 1, 1 });
-    _ringChargeText->Draw(renderer, 10, renderer.GetHeight() - 100);
+    _ringChargeText->Draw(renderer, 10, (float)renderer.GetHeight() - 100);
 
     _scene->Draw(renderer);
 
