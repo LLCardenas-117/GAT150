@@ -1,6 +1,6 @@
 #pragma once
 #include "Math/Transform.h"
-#include "Renderer/Model.h"
+#include "Renderer/Texture.h"
 
 #include <memory>
 #include <string>
@@ -22,9 +22,9 @@ namespace errera {
 
 	public:
 		Actor() = default;
-		Actor(const Transform& transform, std::shared_ptr<class Model> model) :
+		Actor(const Transform& transform, res_t<class Texture> texture) :
 			transform{transform},
-			_model{model}
+			_texture{texture}
 		{}
 
 		virtual void Update(float dt);
@@ -35,6 +35,6 @@ namespace errera {
 		float GetRadius();
 
 	protected:
-		std::shared_ptr<Model> _model;
+		res_t<Texture> _texture;
 	};
 }

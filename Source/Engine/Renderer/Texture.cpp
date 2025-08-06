@@ -1,8 +1,8 @@
 #include "Texture.h"
-
+#include "Core/Logger.h"
 #include "Renderer.h"
-#include <SDL3_image/SDL_image.h>
 
+#include <SDL3_image/SDL_image.h>
 #include <iostream>
 
 namespace errera {
@@ -14,7 +14,7 @@ namespace errera {
 		SDL_Surface* surface = IMG_Load(filename.c_str());
 
 		if (!surface) {
-			std::cerr << "Could not load image: " << filename << std::endl;
+			Logger::Error("Could not load image: ", filename);
 			return false;
 		}
 
@@ -23,7 +23,7 @@ namespace errera {
 		SDL_DestroySurface(surface);
 
 		if (!_texture) {
-			std::cerr << "Could not create texture: " << filename << std::endl;
+			Logger::Error("Could not create texture: ", filename);
 			return false;
 		}
 

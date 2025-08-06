@@ -1,5 +1,5 @@
 #include "Actor.h"
-#include "Renderer/Model.h"
+#include "Renderer/Renderer.h"
 
 namespace errera {
 	void Actor::Update(float dt) {
@@ -17,11 +17,11 @@ namespace errera {
 	void Actor::Draw(Renderer& renderer) {
 		if (destroyed) return;
 
-		_model->Draw(renderer, transform);
+		renderer.DrawTexture(_texture.get(), transform.position.x, transform.position.y, transform.rotation, transform.scale);
 	}
 
 	float Actor::GetRadius() {
-		return (_model) ? _model->GetRadius() * transform.scale * 0.8f : 0;
+		return (_texture) ? (_texture->GetSize().Length() * 0.5f) * transform.scale * 0.8f : 0;
 	}
 
 }

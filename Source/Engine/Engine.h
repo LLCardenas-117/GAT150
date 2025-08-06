@@ -1,18 +1,17 @@
 #pragma once
+#include "Audio/AudioSystem.h"
+#include "Core/Singleton.h"
 #include "Core/Time.h"
+#include "Input/InputSystem.h"
+#include "Renderer/ParticleSystem.h"
+#include "Renderer/Renderer.h"
+#include "Resources/ResourceManager.h"
 
 #include <memory>
 
 namespace errera {
-	class AudioSystem;
-	class InputSystem;
-	class Renderer;
-	class ParticleSystem;
-
-	class Engine {
+	class Engine : public Singleton<Engine> {
 	public:
-		Engine() = default;
-
 		bool Initialize();
 		void Update();
 		void Draw();
@@ -26,6 +25,10 @@ namespace errera {
 		Time& GetTime() { return _time; }
 
 	private:
+		friend class Singleton<Engine>;
+		Engine() = default;
+
+	private:
 		Time _time;
 
 		std::unique_ptr<AudioSystem> _audio;
@@ -34,5 +37,5 @@ namespace errera {
 		std::unique_ptr<ParticleSystem> _particleSystem;
 	};
 
-	Engine& GetEngine();
+	inline Engine& GetEngine() { return Engine::Instance(); };
 }

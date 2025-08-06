@@ -52,9 +52,9 @@ void Player::Update(float dt) { //dt = Delta Time
     if (errera::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_E) && fireTimer <= 0) {
         fireTimer = fireTime;
 
-        std::shared_ptr<errera::Model> missleModel = std::make_shared<errera::Model>(GameData::playerMisslePoints, errera::vec3{ 1.0f, 0.0f, 0.0f });
+        //std::shared_ptr<errera::Model> missleModel = std::make_shared<errera::Model>(GameData::playerMisslePoints, errera::vec3{ 1.0f, 0.0f, 0.0f });
         errera::Transform missleTransform{ this->transform.position, this->transform.rotation, 1.5f };
-        auto rocket = std::make_unique<Rocket>(missleTransform, missleModel);
+        auto rocket = std::make_unique<Rocket>(missleTransform, errera::Resources().Get<errera::Texture>("textures/blue_01.png", errera::GetEngine().GetRenderer()));
         rocket->speed = 1000.0f;
         rocket->lifespan = 1.5f;
         rocket->name = "rocket";

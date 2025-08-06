@@ -1,8 +1,4 @@
 #include "Engine.h"
-#include "Renderer/ParticleSystem.h"
-#include "Renderer/Renderer.h"
-#include "Input/InputSystem.h"
-#include "Audio/AudioSystem.h"
 
 namespace errera {
 	bool Engine::Initialize() {
@@ -37,12 +33,6 @@ namespace errera {
 		_audio->Shutdown();
 		_input->Shutdown();
 		_renderer->Shutdown();
-	}
-
-	Engine& GetEngine()
-	{
-		static Engine engine;
-		return engine;
 	}
 }
 

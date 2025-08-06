@@ -8,24 +8,22 @@
 #include "Math/Vector2.h"
 #include "Player.h"
 #include "Renderer/Font.h"
-#include "Renderer/Model.h"
 #include "Renderer/ParticleSystem.h"
 #include "Renderer/Renderer.h"
 #include "Renderer/Text.h"
 #include "Input/InputSystem.h"
 #include "GameData.h"
 #include "ringBlast.h"
-#include "Resources/ResourceManager.h"
 
 #include <vector>
 
 bool SpaceGame::Initialize() {
     _scene = std::make_unique<errera::Scene>(this);
 
-    _titleText = std::make_unique<errera::Text>(errera::ResourceManager::Instance().Get<errera::Font>("arcadeclassic_title.ttf", 128.0f));
-    _scoreText = std::make_unique<errera::Text>(errera::ResourceManager::Instance().Get<errera::Font>("arcadeclassic_ui.ttf", 48.0f));
-    _livesText = std::make_unique<errera::Text>(errera::ResourceManager::Instance().Get<errera::Font>("arcadeclassic_ui.ttf", 48.0f));
-    _ringChargeText = std::make_unique<errera::Text>(errera::ResourceManager::Instance().Get<errera::Font>("arcadeclassic_ui.ttf", 48.0f));
+    _titleText = std::make_unique<errera::Text>(errera::Resources().GetWithID<errera::Font>("title_font", "arcadeclassic.ttf", 128.0f));
+    _scoreText = std::make_unique<errera::Text>(errera::Resources().GetWithID<errera::Font>("ui_font", "arcadeclassic.ttf", 48.0f));
+    _livesText = std::make_unique<errera::Text>(errera::Resources().GetWithID<errera::Font>("ui_font", "arcadeclassic.ttf", 48.0f));
+    _ringChargeText = std::make_unique<errera::Text>(errera::Resources().GetWithID<errera::Font>("ui_font", "arcadeclassic.ttf", 48.0f));
 
     return true;
 }
@@ -54,9 +52,8 @@ void SpaceGame::Update(float dt) {
         _scene->RemoveAllActors();
 
         // Create Player
-        std::shared_ptr<errera::Model> model = std::make_shared<errera::Model>(GameData::playerShipPoints, errera::vec3{ 0, 1, 0 });
         errera::Transform transform{ errera::vec2{ errera::GetEngine().GetRenderer().GetWidth() * 0.5f , errera::GetEngine().GetRenderer().GetHeight() * 0.5f}, 0, 5 };
-        auto player = std::make_unique<Player>(transform, model);
+        auto player = std::make_unique<Player>(transform, errera::Resources().Get<errera::Texture>("textures/blue_01.png", errera::GetEngine().GetRenderer()));
         player->speed = 1000.0f;
         player->rotationRate = 280.0f;
         player->damping = 0.75f;
@@ -84,7 +81,7 @@ void SpaceGame::Update(float dt) {
             NewRingCharge(_ring);
         }
 
-        if (errera::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_F) && _ring >= 1) {
+        /*if (errera::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_F) && _ring >= 1) {
             Player* player = _scene->GetActorByName<Player>("player");
             if (player) {
                 errera::GetEngine().GetAudio().PlaySound("ring-blast");
@@ -99,7 +96,7 @@ void SpaceGame::Update(float dt) {
                 _scene->AddActor(std::move(ring));
                 _ring -= 1;
             }
-        }
+        }*/
 
         break;
 
@@ -171,10 +168,9 @@ void SpaceGame::SpawnEnemy() {
     Player* player = _scene->GetActorByName<Player>("player");
     if (player) {
         // SAVING CODE FOR ENEMY CODE
-        std::shared_ptr<errera::Model> enemyModel = std::make_shared<errera::Model>(GameData::enemyShipPoints, errera::vec3{ 0.749f, 0.250f, 0.749f });
         errera::vec2 position = player->transform.position + errera::random::onUnitCircle() * errera::random::getReal(200.0f, 500.0f);
         errera::Transform transform{ position, errera::random::getReal(0.0f, 360.0f), 2.5};
-        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, enemyModel);
+        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, errera::Resources().Get<errera::Texture>("textures/blue_01.png", errera::GetEngine().GetRenderer()));
         enemy->damping = 1.5f;
         enemy->fireTime = 3;
         enemy->fireTimer = 5;

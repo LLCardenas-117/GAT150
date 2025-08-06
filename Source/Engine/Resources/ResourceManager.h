@@ -1,4 +1,6 @@
 #pragma once
+#include "Core/Logger.h"
+#include "Core/Singleton.h"
 #include "Core/StringHelper.h"
 #include "Resource.h"
 
@@ -6,27 +8,31 @@
 #include <iostream>
 
 namespace errera {
-	class ResourceManager {
+	class ResourceManager : public Singleton<ResourceManager> {
 	public:
-		template<typename T, typename ... TArgs>
-		res_t<T> Get(const std::string& name, TArgs&& ... args);
+		template<typename T, typename ... Args>
+		res_t<T> Get(const std::string& filename, Args&& ... args);
 
-		static ResourceManager& Instance() {
-			static ResourceManager instance;
-			return instance;
-		}
+		template<typename T, typename ... Args>
+		res_t<T> GetWithID(const std::string& id, const std::string& filename, Args&& ... args);
 
 	private:
-		//ResourceManager() = default;
+		friend class Singleton<ResourceManager>;
+		ResourceManager() = default;
 
 	private:
 		std::map<std::string, res_t<Resource>> _resources;
 
 	};
 
-	template<typename T, typename ... TArgs>
-	inline res_t<T> ResourceManager::Get(const std::string& name, TArgs&& ... args) {
-		std::string key = tolower(name);
+	template<typename T, typename ... Args>
+	inline res_t<T> ResourceManager::Get(const std::string& filename, Args&& ... args) {
+		return GetWithID<T>(filename, filename, std::forward<Args>(args)...);
+	}
+
+	template<typename T, typename ...Args>
+	inline res_t<T> ResourceManager::GetWithID(const std::string& id, const std::string& filename, Args && ...args) {
+		std::string key = tolower(id);
 
 		auto iter = _resources.find(key);
 		// Check if exits
@@ -38,7 +44,7 @@ namespace errera {
 
 			// Check if case was successful
 			if (!resource) {
-				std::cerr << "Resource type mismatch: " << key << std::endl;
+				Logger::Error("Resource type mismatch: ", key);
 				return res_t<T>();
 			}
 
@@ -48,8 +54,8 @@ namespace errera {
 
 		// Load resource
 		res_t<T> resource = std::make_shared<T>();
-		if (resource->Load(key, std::forward<TArgs>(args)...) == false) {
-			std::cerr << "Could not load resource: " << key << std::endl;
+		if (resource->Load(filename, std::forward<Args>(args)...) == false) {
+			Logger::Error("Could not load resource: ", filename);
 			return res_t<T>();
 		}
 
@@ -58,4 +64,6 @@ namespace errera {
 
 		return resource;
 	}
+
+	inline ResourceManager& Resources() { return ResourceManager::Instance(); }
 }

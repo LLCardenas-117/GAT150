@@ -1,4 +1,5 @@
 #include "AudioSystem.h"
+#include "Core/Logger.h"
 #include "Core/StringHelper.h"
 
 #include <fmod_errors.h>
@@ -12,7 +13,7 @@ namespace errera {
     /// <returns></returns>
     bool AudioSystem::CheckFMODResult(FMOD_RESULT result) {
         if (result != FMOD_OK) {
-            std::cerr << FMOD_ErrorString(result) << std::endl;
+            Logger::Error("FMOD_ErrorString: ", FMOD_ErrorString(result));
             return false;
         }
         return true;
@@ -62,7 +63,7 @@ namespace errera {
 
         // Check if key exists in sounds map
         if (_sounds.find(key) != _sounds.end()) {
-            std::cerr << "Audio System: Name Already Exists {" << key << "}" << std::endl;
+            Logger::Error("Audio System: Name Already Exists - ", key);
             return false;
         }
 
@@ -83,7 +84,7 @@ namespace errera {
 
         // Check if sound exists
         if (_sounds.find(key) == _sounds.end()) {
-            std::cerr << "Audio System: Name Doesn't Exist {" << key << "}" << std::endl;
+            Logger::Error("Audio System: Name Doesn't Exist - ", key);
             return false;
         }
 

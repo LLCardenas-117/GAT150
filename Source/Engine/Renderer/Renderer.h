@@ -31,6 +31,8 @@ namespace errera {
 
 		void DrawTexture(Texture* texture, float x, float y);
 
+		void DrawTexture(Texture* texture, float x, float y, float angle, float scale = 1.0f);
+
 		int GetWidth() const { return _width; }
 		int GetHeight() const { return _height; }
 

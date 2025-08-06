@@ -2,6 +2,7 @@
 #include "Core/File.h"
 #include "Core/Random.h"
 #include "Core/Time.h"
+#include "Engine.h"
 #include "Framework/Actor.h"
 #include "Framework/Scene.h"
 #include "Game/Player.h"
@@ -14,7 +15,6 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/Texture.h"
 #include "Resources/ResourceManager.h"
-#include "Engine.h"
 
 #include <iostream>
 #include <vector>
@@ -27,17 +27,16 @@ int main(int argc, char* argv[]) {
     // Initialize Engine Systems
     errera::GetEngine().Initialize();
 
-    /*std::shared_ptr<errera::Texture> texture = std::make_shared<errera::Texture>();
-    texture->Load("Ghost Front.png", errera::GetEngine().GetRenderer());*/
-    auto texture = errera::ResourceManager::Instance().Get<errera::Texture>("Ghost Front.png", errera::GetEngine().GetRenderer());
+    // Create sprite/texture
+    auto texture = errera::Resources().Get<errera::Texture>("textures/blue_01.png", errera::GetEngine().GetRenderer());
 
-    //Creates audio in the game
-    errera::GetEngine().GetAudio().AddSound("unsc-engine.wav", "unsc-engine");
-    errera::GetEngine().GetAudio().AddSound("unsc-fire.wav", "unsc-fire");
-    errera::GetEngine().GetAudio().AddSound("cov-engine.wav", "cov-engine");
-    errera::GetEngine().GetAudio().AddSound("cov-fire.wav", "cov-fire");
-    errera::GetEngine().GetAudio().AddSound("explosion.wav", "kahboom");
-    errera::GetEngine().GetAudio().AddSound("seismic_charges.wav", "ring-blast");
+    // Creates audio in the game
+    errera::GetEngine().GetAudio().AddSound("audio/unsc-engine.wav", "unsc-engine");
+    errera::GetEngine().GetAudio().AddSound("audio/unsc-fire.wav", "unsc-fire");
+    errera::GetEngine().GetAudio().AddSound("audio/cov-engine.wav", "cov-engine");
+    errera::GetEngine().GetAudio().AddSound("audio/cov-fire.wav", "cov-fire");
+    errera::GetEngine().GetAudio().AddSound("audio/explosion.wav", "kahboom");
+    errera::GetEngine().GetAudio().AddSound("audio/seismic_charges.wav", "ring-blast");
 
     // Initialize Game
     std::unique_ptr<SpaceGame> game = std::make_unique<SpaceGame>();
@@ -45,6 +44,8 @@ int main(int argc, char* argv[]) {
 
     SDL_Event e;
     bool quit = false;
+
+    float rotate = 0;
 
     // MAIN LOOP
     while (!quit) {
@@ -66,7 +67,9 @@ int main(int argc, char* argv[]) {
         errera::GetEngine().GetRenderer().SetColor(color.r, color.g, color.b);
         errera::GetEngine().GetRenderer().Clear(); // Clear the screen with black
 
-        errera::GetEngine().GetRenderer().DrawTexture(texture.get(), 30, 30);
+        rotate += 90 * errera::GetEngine().GetTime().GetDeltaTime();
+
+        errera::GetEngine().GetRenderer().DrawTexture(texture.get(), 30, 30, rotate, 4);
 
         game->Draw(errera::GetEngine().GetRenderer());
 

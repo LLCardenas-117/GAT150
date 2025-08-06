@@ -10,8 +10,8 @@ public:
 
 public:
 	ringBlast() = default;
-	ringBlast(const errera::Transform& transform, std::shared_ptr<errera::Model> model) :
-		Actor{ transform, model }
+	ringBlast(const errera::Transform& transform, errera::res_t<errera::Texture> texture) :
+		Actor{ transform, texture }
 	{
 	}
 

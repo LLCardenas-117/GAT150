@@ -10,8 +10,8 @@ public:
 
 public:
 	Enemy() = default;
-	Enemy(const errera::Transform& transform, std::shared_ptr<errera::Model> model) :
-		Actor{ transform, model }
+	Enemy(const errera::Transform& transform, errera::res_t<errera::Texture> texture) :
+		Actor{ transform, texture }
 	{
 	}
 

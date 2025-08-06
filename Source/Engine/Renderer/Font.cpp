@@ -1,5 +1,7 @@
 #include "Font.h"
+#include "Core/Logger.h"
 #include "SDL3_ttf/SDL_ttf.h"
+
 #include <iostream>
 
 namespace errera {
@@ -21,7 +23,7 @@ namespace errera {
 	bool Font::Load(const std::string& name, float fontSize) {
 		_ttfFont = TTF_OpenFont(name.c_str(), fontSize);
 		if (_ttfFont == nullptr) {
-			std::cerr << "Could not load font: " << name << std::endl;
+			Logger::Error("Could not load font: ", name);
 			return false;
 		}
 
