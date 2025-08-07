@@ -44,7 +44,7 @@ namespace errera {
 
 			// Check if case was successful
 			if (!resource) {
-				Logger::Error("Resource type mismatch: ", key);
+				Logger::Error("Resource type mismatch: {}", key);
 				return res_t<T>();
 			}
 
@@ -55,7 +55,7 @@ namespace errera {
 		// Load resource
 		res_t<T> resource = std::make_shared<T>();
 		if (resource->Load(filename, std::forward<Args>(args)...) == false) {
-			Logger::Error("Could not load resource: ", filename);
+			Logger::Error("Could not load resource: {}", filename);
 			return res_t<T>();
 		}
 

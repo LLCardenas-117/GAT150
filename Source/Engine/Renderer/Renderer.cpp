@@ -5,12 +5,12 @@
 namespace errera {
     bool Renderer::Initialize() {
         if (!SDL_Init(SDL_INIT_VIDEO)) {
-            Logger::Error("SDL_INIT ERROR: ", SDL_GetError());
+            Logger::Error("SDL_INIT ERROR: {}", SDL_GetError());
             return false;
         }
 
         if (!TTF_Init()) {
-            Logger::Error("TTF_INIT ERROR: ", SDL_GetError());
+            Logger::Error("TTF_INIT ERROR: {}", SDL_GetError());
             return false;
         }
 
@@ -30,14 +30,14 @@ namespace errera {
 
         _window = SDL_CreateWindow(name.c_str(), width, height, 0);
         if (_window == nullptr) {
-            Logger::Error("SDL_CreateWindow Error: ", SDL_GetError());
+            Logger::Error("SDL_CreateWindow Error: {}", SDL_GetError());
             SDL_Quit();
             return false;
         }
 
         _renderer = SDL_CreateRenderer(_window, NULL);
         if (_renderer == nullptr) {
-            Logger::Error("SDL_CreateRenderer Error: ", SDL_GetError());
+            Logger::Error("SDL_CreateRenderer Error: {}", SDL_GetError());
             SDL_DestroyWindow(_window);
             SDL_Quit();
             return false;

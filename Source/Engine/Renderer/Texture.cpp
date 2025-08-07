@@ -14,7 +14,7 @@ namespace errera {
 		SDL_Surface* surface = IMG_Load(filename.c_str());
 
 		if (!surface) {
-			Logger::Error("Could not load image: ", filename);
+			Logger::Error("Could not load image: {}", filename);
 			return false;
 		}
 
@@ -23,7 +23,7 @@ namespace errera {
 		SDL_DestroySurface(surface);
 
 		if (!_texture) {
-			Logger::Error("Could not create texture: ", filename);
+			Logger::Error("Could not create texture: {}", filename);
 			return false;
 		}
 

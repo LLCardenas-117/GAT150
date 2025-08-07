@@ -13,7 +13,7 @@ namespace errera {
     /// <returns></returns>
     bool AudioSystem::CheckFMODResult(FMOD_RESULT result) {
         if (result != FMOD_OK) {
-            Logger::Error("FMOD_ErrorString: ", FMOD_ErrorString(result));
+            Logger::Error("FMOD_ErrorString: {}", FMOD_ErrorString(result));
             return false;
         }
         return true;
@@ -63,7 +63,7 @@ namespace errera {
 
         // Check if key exists in sounds map
         if (_sounds.find(key) != _sounds.end()) {
-            Logger::Error("Audio System: Name Already Exists - ", key);
+            Logger::Warning("Audio System: Name Already Exists - {}", key);
             return false;
         }
 
@@ -84,7 +84,7 @@ namespace errera {
 
         // Check if sound exists
         if (_sounds.find(key) == _sounds.end()) {
-            Logger::Error("Audio System: Name Doesn't Exist - ", key);
+            Logger::Warning("Audio System: Name Doesn't Exist - {}", key);
             return false;
         }
 

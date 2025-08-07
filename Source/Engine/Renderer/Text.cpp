@@ -31,7 +31,7 @@ namespace errera {
 		_texture = SDL_CreateTextureFromSurface(renderer._renderer, surface);
 		if (_texture == nullptr) {
 			SDL_DestroySurface(surface);
-			Logger::Error("Could not create texture: ", SDL_GetError());
+			Logger::Error("Could not create texture: {}", SDL_GetError());
 			return false;
 		}
 
