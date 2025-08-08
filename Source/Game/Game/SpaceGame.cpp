@@ -18,6 +18,7 @@
 #include <vector>
 
 bool SpaceGame::Initialize() {
+    //RESIZE ALL SPRITES LATER
     _scene = std::make_unique<errera::Scene>(this);
 
     _titleText = std::make_unique<errera::Text>(errera::Resources().GetWithID<errera::Font>("title_font", "arcadeclassic.ttf", 128.0f));
@@ -53,7 +54,8 @@ void SpaceGame::Update(float dt) {
 
         // Create Player
         errera::Transform transform{ errera::vec2{ errera::GetEngine().GetRenderer().GetWidth() * 0.5f , errera::GetEngine().GetRenderer().GetHeight() * 0.5f}, 0, 5 };
-        auto player = std::make_unique<Player>(transform, errera::Resources().Get<errera::Texture>("textures/blue_01.png", errera::GetEngine().GetRenderer()));
+        // PLAYER SPRITE GOES HERE
+        auto player = std::make_unique<Player>(transform, errera::Resources().Get<errera::Texture>("textures/longsword.png", errera::GetEngine().GetRenderer()));
         player->speed = 1000.0f;
         player->rotationRate = 280.0f;
         player->damping = 0.75f;
@@ -81,14 +83,14 @@ void SpaceGame::Update(float dt) {
             NewRingCharge(_ring);
         }
 
-        /*if (errera::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_F) && _ring >= 1) {
+        if (errera::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_F) && _ring >= 1) {
             Player* player = _scene->GetActorByName<Player>("player");
             if (player) {
                 errera::GetEngine().GetAudio().PlaySound("ring-blast");
-                std::shared_ptr<errera::Model> ringBlastModel = std::make_shared<errera::Model>(GameData::ringPoints, errera::vec3{ 1.0f, 1.0f, 1.0f });
                 errera::vec2 position = player->transform.position + errera::random::onUnitCircle();
                 errera::Transform transform{ position, 0, 2.5 };
-                std::unique_ptr<ringBlast> ring = std::make_unique<ringBlast>(transform, ringBlastModel);
+                // RING SPRITE GOES HERE
+                std::unique_ptr<ringBlast> ring = std::make_unique<ringBlast>(transform, errera::Resources().Get<errera::Texture>("textures/ring.png", errera::GetEngine().GetRenderer()));
                 ring->damping = 1.5f;
                 ring->speed = 300.0f;
                 ring->tag = "player";
@@ -96,7 +98,7 @@ void SpaceGame::Update(float dt) {
                 _scene->AddActor(std::move(ring));
                 _ring -= 1;
             }
-        }*/
+        }
 
         break;
 
@@ -170,7 +172,8 @@ void SpaceGame::SpawnEnemy() {
         // SAVING CODE FOR ENEMY CODE
         errera::vec2 position = player->transform.position + errera::random::onUnitCircle() * errera::random::getReal(200.0f, 500.0f);
         errera::Transform transform{ position, errera::random::getReal(0.0f, 360.0f), 2.5};
-        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, errera::Resources().Get<errera::Texture>("textures/blue_01.png", errera::GetEngine().GetRenderer()));
+        // ENEMY SPRITE GOES HERE
+        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, errera::Resources().Get<errera::Texture>("textures/Seraph.png", errera::GetEngine().GetRenderer()));
         enemy->damping = 1.5f;
         enemy->fireTime = 3;
         enemy->fireTimer = 5;

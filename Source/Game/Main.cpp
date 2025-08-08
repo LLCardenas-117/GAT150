@@ -22,13 +22,25 @@
 
 
 int main(int argc, char* argv[]) {
+    // Only display Error messages
+    //errera::Logger::SetEnabledLevels(errera::LogLevel::Error);
+
+    // Only display Error or Debug messages
+    //errera::Logger::SetEnabledLevels(errera::LogLevel::Error | errera::LogLevel::Debug);
+
     errera::file::SetCurrentDirectory("Assets");
 
     // Initialize Engine Systems
     errera::GetEngine().Initialize();
+    errera::Logger::Info("Initializing Engine");
 
     // Create sprite/texture
-    auto texture = errera::Resources().Get<errera::Texture>("textures/blue_01.png", errera::GetEngine().GetRenderer());
+   /* auto texture = errera::Resources().Get<errera::Texture>("textures/longsword.png", errera::GetEngine().GetRenderer());
+    auto texture = errera::Resources().Get<errera::Texture>("textures/Seraph.png", errera::GetEngine().GetRenderer());
+    auto texture = errera::Resources().Get<errera::Texture>("textures/unsc-missle.png", errera::GetEngine().GetRenderer());
+    auto texture = errera::Resources().Get<errera::Texture>("textures/plasma.png", errera::GetEngine().GetRenderer());
+    auto texture = errera::Resources().Get<errera::Texture>("textures/ring.png", errera::GetEngine().GetRenderer());
+    errera::Logger::Info("Added sprites to Game");*/
 
     // Creates audio in the game
     errera::GetEngine().GetAudio().AddSound("audio/unsc-engine.wav", "unsc-engine");
@@ -37,10 +49,12 @@ int main(int argc, char* argv[]) {
     errera::GetEngine().GetAudio().AddSound("audio/cov-fire.wav", "cov-fire");
     errera::GetEngine().GetAudio().AddSound("audio/explosion.wav", "kahboom");
     errera::GetEngine().GetAudio().AddSound("audio/seismic_charges.wav", "ring-blast");
+    errera::Logger::Info("Added audio files to Game");
 
     // Initialize Game
     std::unique_ptr<SpaceGame> game = std::make_unique<SpaceGame>();
     game->Initialize();
+    errera::Logger::Info("Initializing Game");
 
     SDL_Event e;
     bool quit = false;
@@ -67,9 +81,9 @@ int main(int argc, char* argv[]) {
         errera::GetEngine().GetRenderer().SetColor(color.r, color.g, color.b);
         errera::GetEngine().GetRenderer().Clear(); // Clear the screen with black
 
-        rotate += 90 * errera::GetEngine().GetTime().GetDeltaTime();
+        //rotate += 90 * errera::GetEngine().GetTime().GetDeltaTime();
 
-        errera::GetEngine().GetRenderer().DrawTexture(texture.get(), 30, 30, rotate, 4);
+        //errera::GetEngine().GetRenderer().DrawTexture(texture.get(), 30, 30, rotate, 4);
 
         game->Draw(errera::GetEngine().GetRenderer());
 
@@ -79,6 +93,7 @@ int main(int argc, char* argv[]) {
     game->Shutdown();
     game.release();
     errera::GetEngine().Shutdown();
+    errera::Logger::Info("Shuting down Game and Engine");
 
     return 0;
 }
