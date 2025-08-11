@@ -15,6 +15,8 @@
 #include "GameData.h"
 #include "ringBlast.h"
 
+#include "Core/Logger.h"
+
 #include <vector>
 
 bool SpaceGame::Initialize() {
@@ -53,7 +55,7 @@ void SpaceGame::Update(float dt) {
         _scene->RemoveAllActors();
 
         // Create Player
-        errera::Transform transform{ errera::vec2{ errera::GetEngine().GetRenderer().GetWidth() * 0.5f , errera::GetEngine().GetRenderer().GetHeight() * 0.5f}, 0, 5 };
+        errera::Transform transform{ errera::vec2{ errera::GetEngine().GetRenderer().GetWidth() * 0.5f , errera::GetEngine().GetRenderer().GetHeight() * 0.5f}, 0, 2.5f };
         // PLAYER SPRITE GOES HERE
         auto player = std::make_unique<Player>(transform, errera::Resources().Get<errera::Texture>("textures/longsword.png", errera::GetEngine().GetRenderer()));
         player->speed = 1000.0f;
@@ -88,11 +90,12 @@ void SpaceGame::Update(float dt) {
             if (player) {
                 errera::GetEngine().GetAudio().PlaySound("ring-blast");
                 errera::vec2 position = player->transform.position + errera::random::onUnitCircle();
-                errera::Transform transform{ position, 0, 2.5 };
+                errera::Transform transform{ position, 0, .05f };
                 // RING SPRITE GOES HERE
                 std::unique_ptr<ringBlast> ring = std::make_unique<ringBlast>(transform, errera::Resources().Get<errera::Texture>("textures/ring.png", errera::GetEngine().GetRenderer()));
                 ring->damping = 1.5f;
-                ring->speed = 300.0f;
+                errera::Logger::Debug("FIX RING GROW SIZE!!!");
+                ring->speed = 0.00005f;
                 ring->tag = "player";
                 ring->lifespan = 3.0f;
                 _scene->AddActor(std::move(ring));
@@ -106,6 +109,8 @@ void SpaceGame::Update(float dt) {
         _stateTimer -= dt;
 		if (_stateTimer <= 0) {
             _lives--;
+            _ring = 1;
+            _ringChargeTimer = 40;
             if (_lives == 0) {
                 _stateTimer = 2;
                 _gameState = GameState::GameOver; 
@@ -171,7 +176,7 @@ void SpaceGame::SpawnEnemy() {
     if (player) {
         // SAVING CODE FOR ENEMY CODE
         errera::vec2 position = player->transform.position + errera::random::onUnitCircle() * errera::random::getReal(200.0f, 500.0f);
-        errera::Transform transform{ position, errera::random::getReal(0.0f, 360.0f), 2.5};
+        errera::Transform transform{ position, errera::random::getReal(0.0f, 360.0f), 1.25f};
         // ENEMY SPRITE GOES HERE
         std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, errera::Resources().Get<errera::Texture>("textures/Seraph.png", errera::GetEngine().GetRenderer()));
         enemy->damping = 1.5f;

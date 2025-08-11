@@ -34,13 +34,7 @@ int main(int argc, char* argv[]) {
     errera::GetEngine().Initialize();
     errera::Logger::Info("Initializing Engine");
 
-    // Create sprite/texture
-   /* auto texture = errera::Resources().Get<errera::Texture>("textures/longsword.png", errera::GetEngine().GetRenderer());
-    auto texture = errera::Resources().Get<errera::Texture>("textures/Seraph.png", errera::GetEngine().GetRenderer());
-    auto texture = errera::Resources().Get<errera::Texture>("textures/unsc-missle.png", errera::GetEngine().GetRenderer());
-    auto texture = errera::Resources().Get<errera::Texture>("textures/plasma.png", errera::GetEngine().GetRenderer());
-    auto texture = errera::Resources().Get<errera::Texture>("textures/ring.png", errera::GetEngine().GetRenderer());
-    errera::Logger::Info("Added sprites to Game");*/
+    errera::Logger::Warning("Need to fix transparent pixels!");
 
     // Creates audio in the game
     errera::GetEngine().GetAudio().AddSound("audio/unsc-engine.wav", "unsc-engine");
