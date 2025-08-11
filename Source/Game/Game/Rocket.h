@@ -8,8 +8,8 @@ public:
 
 public:
 	Rocket() = default;
-	Rocket(const errera::Transform& transform, errera::res_t<errera::Texture> texture) :
-		Actor{ transform, texture }
+	Rocket(const errera::Transform& transform) :
+		Actor{ transform }
 	{
 	}
 

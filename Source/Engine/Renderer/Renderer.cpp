@@ -1,4 +1,3 @@
-#include "Core/Logger.h"
 #include "Renderer.h"
 #include "Texture.h"
 

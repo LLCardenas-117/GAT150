@@ -10,8 +10,8 @@ public:
 
 public:
 	ringBlast() = default;
-	ringBlast(const errera::Transform& transform, errera::res_t<errera::Texture> texture) :
-		Actor{ transform, texture }
+	ringBlast(const errera::Transform& transform) :
+		Actor{ transform }
 	{
 	}
 

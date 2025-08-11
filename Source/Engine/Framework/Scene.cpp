@@ -1,7 +1,6 @@
 #include "Scene.h"
 #include "Actor.h"
 #include "Renderer/Renderer.h"
-#include "Core/StringHelper.h"
 
 namespace errera {
 	/// <summary>
@@ -11,7 +10,9 @@ namespace errera {
 	void Scene::Update(float dt) {
 		// Update all actors
 		for (auto& actor : _actors) {
-			actor->Update(dt);
+			if (actor->active) {
+				actor->Update(dt);
+			}
 		}
 
 		// Remove destroyed actors
@@ -44,7 +45,9 @@ namespace errera {
 	/// <param name="renderer"></param>
 	void Scene::Draw(Renderer& renderer) {
 		for (auto& actor : _actors) {
-			actor->Draw(renderer);
+			if (actor->active) {
+				actor->Draw(renderer);
+			}
 		}
 	}
 

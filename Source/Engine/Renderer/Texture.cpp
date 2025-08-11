@@ -1,9 +1,5 @@
 #include "Texture.h"
-#include "Core/Logger.h"
 #include "Renderer.h"
-
-#include <SDL3_image/SDL_image.h>
-#include <iostream>
 
 namespace errera {
 	Texture::~Texture() {

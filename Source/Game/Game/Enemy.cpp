@@ -1,18 +1,8 @@
 #include "Enemy.h"
 
-#include "Audio/AudioSystem.h"
-#include "Engine.h"
 #include "Player.h"
-#include "Framework/Game.h"
-#include "Framework/Scene.h"
-#include "Renderer/Renderer.h"
-#include "Renderer/ParticleSystem.h"
 #include "Rocket.h"
 #include "GameData.h"
-#include "Math/Vector3.h"
-#include "Renderer/Model.h"
-#include "Core/Random.h"
-#include "Math/Vector2.h"
 
 void Enemy::Update(float dt){
 
@@ -57,12 +47,17 @@ void Enemy::Update(float dt){
     if (fireTimer <= 0 && playerSeen) {
         fireTimer = fireTime;
         errera::Transform missleTransform{ this->transform.position, this->transform.rotation, 1.5f };
-        // ROCKET SPRITE GOES HERE
-        auto rocket = std::make_unique<Rocket>(missleTransform, errera::Resources().Get<errera::Texture>("textures/plasma.png", errera::GetEngine().GetRenderer()));
+        auto rocket = std::make_unique<Rocket>(missleTransform); //, errera::Resources().Get<errera::Texture>("textures/plasma.png", errera::GetEngine().GetRenderer()));
         rocket->speed = 1000.0f;
         rocket->lifespan = 1.5f;
         rocket->name = "rocket";
         rocket->tag = "enemy";
+
+        // Components
+        auto spriteRenderer = std::make_unique<errera::SpriteRenderer>();
+        spriteRenderer->textureName = "textures/plasma.png";
+
+        rocket->AddComponent(std::move(spriteRenderer));
 
         scene->AddActor(std::move(rocket));
     }

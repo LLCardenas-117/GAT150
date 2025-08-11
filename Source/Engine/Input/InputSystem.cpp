@@ -1,5 +1,4 @@
 #include "InputSystem.h"
-#include <SDL3/SDL.h>
 
 bool errera::InputSystem::Initialize()
 {

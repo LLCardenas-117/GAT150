@@ -1,9 +1,5 @@
 #include "File.h"
 
-#include <filesystem>
-#include <iostream>
-#include <fstream>
-
 namespace errera::file {
 	std::string GetCurrentDirectory() {
 		std::error_code ec;

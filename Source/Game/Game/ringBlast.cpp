@@ -1,10 +1,7 @@
 #include "ringBlast.h"
 
-#include "Engine.h"
-#include "Audio/AudioSystem.h"
-
 void ringBlast::Update(float dt) {
-    transform.scale += 50.0f * dt;
+    transform.scale += 1.25f * dt;
 
     Actor::Update(dt);
 }

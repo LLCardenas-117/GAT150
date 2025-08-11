@@ -31,6 +31,10 @@ public:
 private:
 	void SpawnEnemy();
 
+	void SpawnPlayer();
+
+	void SpawnRing();
+
 private:
 	GameState _gameState = GameState::Initialize;
 	float _enemySpawnTimer{ 0 };

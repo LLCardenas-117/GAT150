@@ -1,12 +1,14 @@
 #pragma once
+#include "Component.h"
 #include "Math/Transform.h"
+#include "Object.h"
 #include "Renderer/Texture.h"
 
 #include <memory>
 #include <string>
 
 namespace errera {
-	class Actor {
+	class Actor : public Object {
 	public:
 		std::string name;
 		std::string tag;
@@ -22,9 +24,8 @@ namespace errera {
 
 	public:
 		Actor() = default;
-		Actor(const Transform& transform, res_t<class Texture> texture) :
-			transform{transform},
-			_texture{texture}
+		Actor(const Transform& transform) :
+			transform{transform}
 		{}
 
 		virtual void Update(float dt);
@@ -34,7 +35,11 @@ namespace errera {
 
 		float GetRadius();
 
+		// Components
+		void AddComponent(std::unique_ptr<Component> component);
+
 	protected:
-		res_t<Texture> _texture;
+		std::vector<std::unique_ptr<Component>> _components;
+		//res_t<Texture> _texture;
 	};
 }

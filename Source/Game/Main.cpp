@@ -1,31 +1,7 @@
-#include "Audio/AudioSystem.h"
-#include "Core/File.h"
-#include "Core/Random.h"
-#include "Core/Time.h"
-#include "Engine.h"
-#include "Framework/Actor.h"
-#include "Framework/Scene.h"
-#include "Game/Player.h"
 #include "Game/SpaceGame.h"
-#include "Input/InputSystem.h"
-#include "Math/Transform.h"
-#include "Math/Vector2.h"
-#include "Math/Vector3.h"
-#include "Renderer/Model.h"
-#include "Renderer/Renderer.h"
-#include "Renderer/Texture.h"
-#include "Resources/ResourceManager.h"
-
-#include <iostream>
-#include <vector>
-#include <memory>
 
 
 int main(int argc, char* argv[]) {
-    // Only display Error messages
-    //errera::Logger::SetEnabledLevels(errera::LogLevel::Error);
-
-    // Only display Error or Debug messages
     //errera::Logger::SetEnabledLevels(errera::LogLevel::Error | errera::LogLevel::Debug);
 
     errera::file::SetCurrentDirectory("Assets");
@@ -74,10 +50,6 @@ int main(int argc, char* argv[]) {
 
         errera::GetEngine().GetRenderer().SetColor(color.r, color.g, color.b);
         errera::GetEngine().GetRenderer().Clear(); // Clear the screen with black
-
-        //rotate += 90 * errera::GetEngine().GetTime().GetDeltaTime();
-
-        //errera::GetEngine().GetRenderer().DrawTexture(texture.get(), 30, 30, rotate, 4);
 
         game->Draw(errera::GetEngine().GetRenderer());
 

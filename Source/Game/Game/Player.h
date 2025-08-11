@@ -10,8 +10,8 @@ public:
 
 public:
 	Player() = default;
-	Player(const errera::Transform& transform, errera::res_t<errera::Texture> texture) :
-		Actor{ transform, texture }
+	Player(const errera::Transform& transform) :
+		Actor{ transform }
 	{}
 
 	void Update(float dt) override;
