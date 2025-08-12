@@ -16,6 +16,8 @@ namespace errera {
 		template<typename T, typename ... Args>
 		res_t<T> GetWithID(const std::string& id, const std::string& filename, Args&& ... args);
 
+		void Clear() { _resources.clear(); }
+
 	private:
 		friend class Singleton<ResourceManager>;
 		ResourceManager() = default;

@@ -29,6 +29,7 @@ namespace errera {
 	}
 
 	void Engine::Shutdown()	{
+		Resources().Clear();
 		_particleSystem->ShutDown();
 		_audio->Shutdown();
 		_input->Shutdown();
