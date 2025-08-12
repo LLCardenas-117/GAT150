@@ -67,8 +67,8 @@ namespace errera {
     void Renderer::DrawPoint(float x, float y) {
 		SDL_RenderPoint(_renderer, x, y);
     }
-    void Renderer::DrawTexture(Texture* texture, float x, float y) {
-        vec2 size = texture->GetSize();
+    void Renderer::DrawTexture(Texture& texture, float x, float y) {
+        vec2 size = texture.GetSize();
 
         SDL_FRect destRect;
         destRect.x = x;
@@ -76,11 +76,11 @@ namespace errera {
         destRect.w = size.x;
         destRect.h = size.y;
 
-        SDL_RenderTexture(_renderer, texture->_texture, NULL, &destRect);
+        SDL_RenderTexture(_renderer, texture._texture, NULL, &destRect);
     }
 
-    void Renderer::DrawTexture(Texture* texture, float x, float y, float angle, float scale) {
-        vec2 size = texture->GetSize();
+    void Renderer::DrawTexture(Texture& texture, float x, float y, float angle, float scale) {
+        vec2 size = texture.GetSize();
 
         SDL_FRect destRect;
         destRect.w = size.x * scale;
@@ -88,6 +88,6 @@ namespace errera {
         destRect.x = x - (destRect.w * 0.5f);
         destRect.y = y - (destRect.h * 0.5f);
 
-        SDL_RenderTextureRotated(_renderer, texture->_texture, NULL, &destRect, angle, NULL, SDL_FLIP_NONE);
+        SDL_RenderTextureRotated(_renderer, texture._texture, NULL, &destRect, angle, NULL, SDL_FLIP_NONE);
     }
 }

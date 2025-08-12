@@ -6,15 +6,13 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 namespace errera {
 	class Actor : public Object {
 	public:
 		std::string name;
 		std::string tag;
-
-		vec2 velocity{ 0, 0 };
-		float damping{ 0.2f };
 
 		bool destroyed{ false };
 		float lifespan{ 0 };
@@ -33,13 +31,41 @@ namespace errera {
 
 		virtual void OnCollision(Actor* other) = 0;
 
-		float GetRadius();
-
 		// Components
 		void AddComponent(std::unique_ptr<Component> component);
+
+		template <typename T>
+		T* GetComponent();
+
+		template <typename T>
+		std::vector<T*> GetComponents();
 
 	protected:
 		std::vector<std::unique_ptr<Component>> _components;
 		//res_t<Texture> _texture;
 	};
+
+	template<typename T>
+	inline T* Actor::GetComponent() {
+		for (auto& component : _components) {
+			auto result = dynamic_cast<T*>(component.get());
+
+			if (result) return result;
+		}
+
+		return nullptr;
+	}
+
+	template<typename T>
+	inline std::vector<T*> Actor::GetComponents() {
+		std::vector<T*> results;
+
+		for (auto& component : _components) {
+			auto result = dynamic_cast<T*>(component.get());
+
+			if (result) results.push_back(result);
+		}
+
+		return results;
+	}
 }

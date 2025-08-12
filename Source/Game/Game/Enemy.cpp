@@ -38,7 +38,11 @@ void Enemy::Update(float dt){
 
     errera::vec2 force = errera::vec2{ 1, 0 }.Rotate(errera::math::degToRad(transform.rotation)) * speed;
 
-    velocity += force * dt;
+    auto* rb = GetComponent<errera::RigidBody>();
+    if (rb) {
+        rb->velocity += force * dt;
+    }
+    //velocity += force * dt;
 
     transform.position.x = errera::math::wrap(transform.position.x, 0.0f, (float)errera::GetEngine().GetRenderer().GetWidth());
     transform.position.y = errera::math::wrap(transform.position.y, 0.0f, (float)errera::GetEngine().GetRenderer().GetHeight());
@@ -59,6 +63,13 @@ void Enemy::Update(float dt){
 
         rocket->AddComponent(std::move(spriteRenderer));
 
+        auto rb = std::make_unique<errera::RigidBody>();
+        rocket->AddComponent(std::move(rb));
+
+        auto collider = std::make_unique<errera::CircleCollider2D>();
+        collider->radius = 10;
+        rocket->AddComponent(std::move(collider));
+
         scene->AddActor(std::move(rocket));
     }
 
@@ -77,6 +88,7 @@ void Enemy::OnCollision(Actor* other) {
             particle.lifespan = 2;
             errera::GetEngine().GetParticleSystem().AddParticle(particle);
         }
-        errera::GetEngine().GetAudio().PlaySound("kahboom");
+        //errera::GetEngine().GetAudio().PlaySound("kahboom");
+        errera::GetEngine().GetAudio().PlaySound(*errera::Resources().Get<errera::AudioClip>("audio/explosion.wav", errera::GetEngine().GetAudio()).get());
     }
 }

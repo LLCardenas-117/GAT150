@@ -4,9 +4,12 @@
 #include "Engine.h"
 
 // Audio
+#include "Audio/AudioClip.h"
 #include "Audio/AudioSystem.h"
 
 // Components
+#include "Components/CircleCollider2D.h"
+#include "Components/RigidBody.h"
 #include "Components/SpriteRenderer.h"
 
 // Input

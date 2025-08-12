@@ -139,7 +139,6 @@ void SpaceGame::SpawnEnemy() {
         errera::vec2 position = player->transform.position + errera::random::onUnitCircle() * errera::random::getReal(200.0f, 500.0f);
         errera::Transform transform{ position, errera::random::getReal(0.0f, 360.0f), 1.25f };
         std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform);
-        enemy->damping = 1.5f;
         enemy->fireTime = 3;
         enemy->fireTimer = 5;
         enemy->speed = (float)(errera::random::getReal() * 200) + 300.0f;
@@ -151,6 +150,14 @@ void SpaceGame::SpawnEnemy() {
 
         enemy->AddComponent(std::move(spriteRenderer));
 
+        auto rb = std::make_unique<errera::RigidBody>();
+        rb->damping = 1.5f;
+        enemy->AddComponent(std::move(rb));
+
+        auto collider = std::make_unique<errera::CircleCollider2D>();
+        collider->radius = 60;
+        enemy->AddComponent(std::move(collider));
+
         _scene->AddActor(std::move(enemy));
     }
 }
@@ -161,7 +168,6 @@ void SpaceGame::SpawnPlayer() {
     auto player = std::make_unique<Player>(transform);
     player->speed = 1000.0f;
     player->rotationRate = 280.0f;
-    player->damping = 0.75f;
     player->name = "player";
     player->tag = "player";
 
@@ -171,17 +177,25 @@ void SpaceGame::SpawnPlayer() {
 
     player->AddComponent(std::move(spriteRenderer));
 
+    auto rb = std::make_unique<errera::RigidBody>();
+    rb->damping = 0.75f;
+    player->AddComponent(std::move(rb));
+
+    auto collider = std::make_unique<errera::CircleCollider2D>();
+    collider->radius = 60;
+    player->AddComponent(std::move(collider));
+
     _scene->AddActor(std::move(player));
 }
 
 void SpaceGame::SpawnRing() {
     Player* player = _scene->GetActorByName<Player>("player");
     if (player) {
-        errera::GetEngine().GetAudio().PlaySound("ring-blast");
+        //errera::GetEngine().GetAudio().PlaySound("ring-blast");
+        errera::GetEngine().GetAudio().PlaySound(*errera::Resources().Get<errera::AudioClip>("audio/seismic_charges.wav", errera::GetEngine().GetAudio()).get());
         errera::vec2 position = player->transform.position + errera::random::onUnitCircle();
         errera::Transform transform{ position, 0, .05f };
         std::unique_ptr<ringBlast> ring = std::make_unique<ringBlast>(transform);
-        ring->damping = 1.5f;
         ring->speed = 0.5f;
         ring->tag = "player";
         ring->lifespan = 3.0f;
@@ -191,6 +205,14 @@ void SpaceGame::SpawnRing() {
         spriteRenderer->textureName = "textures/ring.png";
 
         ring->AddComponent(std::move(spriteRenderer));
+
+        /*auto rb = std::make_unique<errera::RigidBody>();
+        rb->damping = 1.5f;
+        ring->AddComponent(std::move(rb));*/
+
+        auto collider = std::make_unique<errera::CircleCollider2D>();
+        collider->radius = 9000;
+        ring->AddComponent(std::move(collider));
 
         _scene->AddActor(std::move(ring));
         _ring -= 1;

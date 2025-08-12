@@ -4,7 +4,7 @@
 #include "SpaceGame.h"
 
 void Player::Update(float dt) { //dt = Delta Time
-    if (errera::GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_W)) errera::GetEngine().GetAudio().PlaySound("unsc-engine");
+    //if (errera::GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_W)) errera::GetEngine().GetAudio().PlaySound("unsc-engine");
 
     // Engine particle
 	errera::Particle particle;
@@ -31,7 +31,11 @@ void Player::Update(float dt) { //dt = Delta Time
     errera::vec2 direction{ 1, 0 };
     errera::vec2 force = direction.Rotate(errera::math::degToRad(transform.rotation)) * thrust * speed;
 
-    velocity += force * dt;
+    //velocity += force * dt;
+    auto* rb = GetComponent<errera::RigidBody>();
+    if (rb) {
+        rb->velocity += force * dt;
+    }
 
     transform.position.x = errera::math::wrap(transform.position.x, 0.0f, (float)errera::GetEngine().GetRenderer().GetWidth());
     transform.position.y = errera::math::wrap(transform.position.y, 0.0f, (float)errera::GetEngine().GetRenderer().GetHeight());
@@ -54,6 +58,13 @@ void Player::Update(float dt) { //dt = Delta Time
 
         rocket->AddComponent(std::move(spriteRenderer));
 
+        auto rb = std::make_unique<errera::RigidBody>();
+        rocket->AddComponent(std::move(rb));
+
+        auto collider = std::make_unique<errera::CircleCollider2D>();
+        collider->radius = 10;
+        rocket->AddComponent(std::move(collider));
+
         scene->AddActor(std::move(rocket));
     }
 
@@ -64,6 +75,7 @@ void Player::OnCollision(Actor* other) {
     if (tag != other->tag) {
         destroyed = true;
 		dynamic_cast<SpaceGame*>(scene->GetGame())->OnPlayerDeath();
-        errera::GetEngine().GetAudio().PlaySound("kahboom");
+        //errera::GetEngine().GetAudio().PlaySound("kahboom");
+        errera::GetEngine().GetAudio().PlaySound(*errera::Resources().Get<errera::AudioClip>("audio/explosion.wav", errera::GetEngine().GetAudio()).get());
     }
 }

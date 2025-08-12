@@ -13,13 +13,13 @@ int main(int argc, char* argv[]) {
     errera::Logger::Warning("Need to fix transparent pixels!");
 
     // Creates audio in the game
-    errera::GetEngine().GetAudio().AddSound("audio/unsc-engine.wav", "unsc-engine");
+    /*errera::GetEngine().GetAudio().AddSound("audio/unsc-engine.wav", "unsc-engine");
     errera::GetEngine().GetAudio().AddSound("audio/unsc-fire.wav", "unsc-fire");
     errera::GetEngine().GetAudio().AddSound("audio/cov-engine.wav", "cov-engine");
     errera::GetEngine().GetAudio().AddSound("audio/cov-fire.wav", "cov-fire");
     errera::GetEngine().GetAudio().AddSound("audio/explosion.wav", "kahboom");
     errera::GetEngine().GetAudio().AddSound("audio/seismic_charges.wav", "ring-blast");
-    errera::Logger::Info("Added audio files to Game");
+    errera::Logger::Info("Added audio files to Game");*/
 
     // Initialize Game
     std::unique_ptr<SpaceGame> game = std::make_unique<SpaceGame>();

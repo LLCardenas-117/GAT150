@@ -1,5 +1,7 @@
 #include "AudioSystem.h"
 
+#include "AudioClip.h"
+
 namespace errera {
     /// <summary>
     /// 
@@ -85,6 +87,13 @@ namespace errera {
 
         // Play sound from key
         FMOD_RESULT result = _system->playSound(_sounds[key], 0, false, nullptr);
+        if (!CheckFMODResult(result)) return false;
+
+        return true;
+    }
+
+    bool AudioSystem::PlaySound(AudioClip& audioClip) {
+        FMOD_RESULT result = _system->playSound(audioClip._sound, 0, false, nullptr);
         if (!CheckFMODResult(result)) return false;
 
         return true;
