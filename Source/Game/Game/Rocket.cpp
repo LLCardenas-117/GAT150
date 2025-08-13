@@ -4,19 +4,8 @@
 #include "Player.h"
 
 void Rocket::Update(float dt) {
-
-    if (tag == "enemy") {
-        //errera::GetEngine().GetAudio().PlaySound("unsc-fire");
-        errera::GetEngine().GetAudio().PlaySound(*errera::Resources().Get<errera::AudioClip>("audio/cov-fire.wav", errera::GetEngine().GetAudio()).get());
-    }
-    else if (tag == "player") {
-        //errera::GetEngine().GetAudio().PlaySound("cov-fire");
-        errera::GetEngine().GetAudio().PlaySound(*errera::Resources().Get<errera::AudioClip>("audio/unsc-fire.wav", errera::GetEngine().GetAudio()).get());
-    }
-
     errera::vec2 force = errera::vec2{ 1, 0 }.Rotate(errera::math::degToRad(transform.rotation)) * speed;
 
-    //velocity = force;
     auto* rb = GetComponent<errera::RigidBody>();
     if (rb) {
         rb->velocity = force;
@@ -43,7 +32,6 @@ void Rocket::Update(float dt) {
 void Rocket::OnCollision(Actor* other) {
     if (tag != other->tag) {
         destroyed = true;
-        //errera::GetEngine().GetAudio().PlaySound("kahboom");
         errera::GetEngine().GetAudio().PlaySound(*errera::Resources().Get<errera::AudioClip>("audio/explosion.wav", errera::GetEngine().GetAudio()).get());
     }
 }

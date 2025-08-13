@@ -31,7 +31,6 @@ void Player::Update(float dt) { //dt = Delta Time
     errera::vec2 direction{ 1, 0 };
     errera::vec2 force = direction.Rotate(errera::math::degToRad(transform.rotation)) * thrust * speed;
 
-    //velocity += force * dt;
     auto* rb = GetComponent<errera::RigidBody>();
     if (rb) {
         rb->velocity += force * dt;
@@ -45,7 +44,7 @@ void Player::Update(float dt) { //dt = Delta Time
     fireTimer -= dt;
     if (errera::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_E) && fireTimer <= 0) {
         fireTimer = fireTime;
-        errera::Transform missleTransform{ this->transform.position, this->transform.rotation, 1.5f };
+        errera::Transform missleTransform{ this->transform.position, this->transform.rotation, 0.75f };
         auto rocket = std::make_unique<Rocket>(missleTransform);
         rocket->speed = 1000.0f;
         rocket->lifespan = 1.5f;
@@ -65,6 +64,9 @@ void Player::Update(float dt) { //dt = Delta Time
         collider->radius = 10;
         rocket->AddComponent(std::move(collider));
 
+        // Rocket sound
+        errera::GetEngine().GetAudio().PlaySound(*errera::Resources().Get<errera::AudioClip>("audio/unsc-fire.wav", errera::GetEngine().GetAudio()).get());
+
         scene->AddActor(std::move(rocket));
     }
 
@@ -75,7 +77,6 @@ void Player::OnCollision(Actor* other) {
     if (tag != other->tag) {
         destroyed = true;
 		dynamic_cast<SpaceGame*>(scene->GetGame())->OnPlayerDeath();
-        //errera::GetEngine().GetAudio().PlaySound("kahboom");
         errera::GetEngine().GetAudio().PlaySound(*errera::Resources().Get<errera::AudioClip>("audio/explosion.wav", errera::GetEngine().GetAudio()).get());
     }
 }

@@ -42,7 +42,6 @@ void Enemy::Update(float dt){
     if (rb) {
         rb->velocity += force * dt;
     }
-    //velocity += force * dt;
 
     transform.position.x = errera::math::wrap(transform.position.x, 0.0f, (float)errera::GetEngine().GetRenderer().GetWidth());
     transform.position.y = errera::math::wrap(transform.position.y, 0.0f, (float)errera::GetEngine().GetRenderer().GetHeight());
@@ -50,8 +49,8 @@ void Enemy::Update(float dt){
     fireTimer -= dt;
     if (fireTimer <= 0 && playerSeen) {
         fireTimer = fireTime;
-        errera::Transform missleTransform{ this->transform.position, this->transform.rotation, 1.5f };
-        auto rocket = std::make_unique<Rocket>(missleTransform); //, errera::Resources().Get<errera::Texture>("textures/plasma.png", errera::GetEngine().GetRenderer()));
+        errera::Transform missleTransform{ this->transform.position, this->transform.rotation, 0.75f };
+        auto rocket = std::make_unique<Rocket>(missleTransform); 
         rocket->speed = 1000.0f;
         rocket->lifespan = 1.5f;
         rocket->name = "rocket";
@@ -69,6 +68,9 @@ void Enemy::Update(float dt){
         auto collider = std::make_unique<errera::CircleCollider2D>();
         collider->radius = 10;
         rocket->AddComponent(std::move(collider));
+
+        // Rocket sound
+        errera::GetEngine().GetAudio().PlaySound(*errera::Resources().Get<errera::AudioClip>("audio/cov-fire.wav", errera::GetEngine().GetAudio()).get());
 
         scene->AddActor(std::move(rocket));
     }
@@ -88,7 +90,6 @@ void Enemy::OnCollision(Actor* other) {
             particle.lifespan = 2;
             errera::GetEngine().GetParticleSystem().AddParticle(particle);
         }
-        //errera::GetEngine().GetAudio().PlaySound("kahboom");
         errera::GetEngine().GetAudio().PlaySound(*errera::Resources().Get<errera::AudioClip>("audio/explosion.wav", errera::GetEngine().GetAudio()).get());
     }
 }
