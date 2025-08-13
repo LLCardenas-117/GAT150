@@ -65,7 +65,10 @@ void Player::Update(float dt) { //dt = Delta Time
         rocket->AddComponent(std::move(collider));
 
         // Rocket sound
-        errera::GetEngine().GetAudio().PlaySound(*errera::Resources().Get<errera::AudioClip>("audio/unsc-fire.wav", errera::GetEngine().GetAudio()).get());
+        auto sound = errera::Resources().Get<errera::AudioClip>("audio/unsc-fire.wav", errera::GetEngine().GetAudio()).get();
+        if (sound) {
+            errera::GetEngine().GetAudio().PlaySound(*sound);
+        }
 
         scene->AddActor(std::move(rocket));
     }
@@ -77,6 +80,10 @@ void Player::OnCollision(Actor* other) {
     if (tag != other->tag) {
         destroyed = true;
 		dynamic_cast<SpaceGame*>(scene->GetGame())->OnPlayerDeath();
-        errera::GetEngine().GetAudio().PlaySound(*errera::Resources().Get<errera::AudioClip>("audio/explosion.wav", errera::GetEngine().GetAudio()).get());
+        
+        auto sound = errera::Resources().Get<errera::AudioClip>("audio/explosion.wav", errera::GetEngine().GetAudio()).get();
+        if (sound) {
+            errera::GetEngine().GetAudio().PlaySound(*sound);
+        }
     }
 }

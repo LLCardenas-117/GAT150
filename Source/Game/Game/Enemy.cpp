@@ -70,7 +70,10 @@ void Enemy::Update(float dt){
         rocket->AddComponent(std::move(collider));
 
         // Rocket sound
-        errera::GetEngine().GetAudio().PlaySound(*errera::Resources().Get<errera::AudioClip>("audio/cov-fire.wav", errera::GetEngine().GetAudio()).get());
+        auto sound = errera::Resources().Get<errera::AudioClip>("audio/cov-fire.wav", errera::GetEngine().GetAudio()).get();
+        if (sound) {
+            errera::GetEngine().GetAudio().PlaySound(*sound);
+        }
 
         scene->AddActor(std::move(rocket));
     }
@@ -90,6 +93,10 @@ void Enemy::OnCollision(Actor* other) {
             particle.lifespan = 2;
             errera::GetEngine().GetParticleSystem().AddParticle(particle);
         }
-        errera::GetEngine().GetAudio().PlaySound(*errera::Resources().Get<errera::AudioClip>("audio/explosion.wav", errera::GetEngine().GetAudio()).get());
+
+        auto sound = errera::Resources().Get<errera::AudioClip>("audio/explosion.wav", errera::GetEngine().GetAudio()).get();
+        if (sound) {
+            errera::GetEngine().GetAudio().PlaySound(*sound);
+        }
     }
 }

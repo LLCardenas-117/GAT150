@@ -1,12 +1,37 @@
-#include "Model.h"
+#include "Mesh.h"
 #include "Renderer.h"
 
 namespace errera {
 	/// <summary>
 	/// 
 	/// </summary>
+	/// <param name="filename"></param>
+	/// <returns></returns>
+	bool Mesh::Load(const std::string& filename) {
+		std::string buffer;
+		if (!file::ReadTextFile(filename, buffer)) {
+			Logger::Error("Could not read file!");
+		}
+
+		std::stringstream stream(buffer);
+
+		// Read color
+		stream >> _color;
+
+		// Read points
+		vec2 point;
+		while (stream >> point) {
+			_points.push_back(point);
+		}
+
+		return true;
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
 	/// <param name="renderer"></param>
-	void Model::Draw(Renderer& renderer, const vec2& position, float rotation, float scale){
+	void Mesh::Draw(Renderer& renderer, const vec2& position, float rotation, float scale){
 		// Checks if points are empty, if so then return
 		if (_points.empty()) return;
 
@@ -26,14 +51,14 @@ namespace errera {
 	/// </summary>
 	/// <param name="renderer"></param>
 	/// <param name="transform"></param>
-	void Model::Draw(Renderer& renderer, const Transform& transform) {
+	void Mesh::Draw(Renderer& renderer, const Transform& transform) {
 		Draw(renderer, transform.position, transform.rotation, transform.scale);
 	}
 
 	/// <summary>
 	/// 
 	/// </summary>
-	void Model::CalculateRadius() {
+	void Mesh::CalculateRadius() {
 		_radius = 0;
 		for (auto& point : _points) {
 			float length = point.Length();

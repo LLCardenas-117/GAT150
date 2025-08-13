@@ -1,21 +1,23 @@
 #pragma once
 
-#include "Math/Vector2.h"
 #include "Math/Vector3.h"
 #include "Math/Transform.h"
+#include "Resources/Resource.h"
 
 #include <vector>
 
 namespace errera {
-	class Model {
+	class Mesh : public Resource {
 	public:
-		Model() = default;
-		Model(const std::vector<vec2> points, const vec3& color) :
+		Mesh() = default;
+		Mesh(const std::vector<vec2> points, const vec3& color) :
 			_points{ points },
 			_color{ color }
 		{
 			CalculateRadius();
 		}
+
+		bool Load(const std::string& filename);
 
 		void Draw(class Renderer& renderer, const vec2& position,float rotation, float scale);
 		void Draw(class Renderer& renderer, const Transform& transform);

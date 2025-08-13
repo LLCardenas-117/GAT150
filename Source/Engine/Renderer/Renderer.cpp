@@ -23,11 +23,11 @@ namespace errera {
         SDL_Quit();
     }
 
-    bool Renderer::CreateWindow(const std::string& name, int width, int height) {
+    bool Renderer::CreateWindow(const std::string& name, int width, int height, bool fullscreen) {
         _width = width;
         _height = height;
 
-        _window = SDL_CreateWindow(name.c_str(), width, height, 0);
+        _window = SDL_CreateWindow(name.c_str(), width, height, fullscreen ? SDL_WINDOW_FULLSCREEN : 0);
         if (_window == nullptr) {
             Logger::Error("SDL_CreateWindow Error: {}", SDL_GetError());
             SDL_Quit();
@@ -41,6 +41,8 @@ namespace errera {
             SDL_Quit();
             return false;
         }
+
+        SDL_SetRenderLogicalPresentation(_renderer, width, height, SDL_LOGICAL_PRESENTATION_LETTERBOX);
 
         return true;
     }

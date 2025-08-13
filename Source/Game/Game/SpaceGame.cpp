@@ -191,8 +191,11 @@ void SpaceGame::SpawnPlayer() {
 void SpaceGame::SpawnRing() {
     Player* player = _scene->GetActorByName<Player>("player");
     if (player) {
-        //errera::GetEngine().GetAudio().PlaySound("ring-blast");
-        errera::GetEngine().GetAudio().PlaySound(*errera::Resources().Get<errera::AudioClip>("audio/seismic_charges.wav", errera::GetEngine().GetAudio()).get());
+        auto sound = errera::Resources().Get<errera::AudioClip>("audio/seismic_charges.wav", errera::GetEngine().GetAudio()).get();
+        if (sound) {
+            errera::GetEngine().GetAudio().PlaySound(*sound);
+        }
+
         errera::vec2 position = player->transform.position + errera::random::onUnitCircle();
         errera::Transform transform{ position, 0, .05f };
         std::unique_ptr<ringBlast> ring = std::make_unique<ringBlast>(transform);
@@ -205,10 +208,6 @@ void SpaceGame::SpawnRing() {
         spriteRenderer->textureName = "textures/ring.png";
 
         ring->AddComponent(std::move(spriteRenderer));
-
-        /*auto rb = std::make_unique<errera::RigidBody>();
-        rb->damping = 1.5f;
-        ring->AddComponent(std::move(rb));*/
 
         auto collider = std::make_unique<errera::CircleCollider2D>();
         collider->radius = 9000;

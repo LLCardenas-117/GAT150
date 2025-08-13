@@ -4,7 +4,7 @@ namespace errera {
 	bool Engine::Initialize() {
 		_renderer = std::make_unique<Renderer>();
 		_renderer->Initialize();
-		_renderer->CreateWindow("ERRERA Engine", 1280, 1024);
+		_renderer->CreateWindow("ERRERA Engine", 1280, 1024, false);
 
 		_input = std::make_unique<InputSystem>();
 		_input->Initialize();
@@ -29,7 +29,10 @@ namespace errera {
 	}
 
 	void Engine::Shutdown()	{
+		// Release resources from rescource manager
 		Resources().Clear();
+
+		// Shutdown engine systems
 		_particleSystem->ShutDown();
 		_audio->Shutdown();
 		_input->Shutdown();

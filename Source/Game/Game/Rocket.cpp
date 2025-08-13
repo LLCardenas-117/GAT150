@@ -32,6 +32,10 @@ void Rocket::Update(float dt) {
 void Rocket::OnCollision(Actor* other) {
     if (tag != other->tag) {
         destroyed = true;
-        errera::GetEngine().GetAudio().PlaySound(*errera::Resources().Get<errera::AudioClip>("audio/explosion.wav", errera::GetEngine().GetAudio()).get());
+
+        auto sound = errera::Resources().Get<errera::AudioClip>("audio/explosion.wav", errera::GetEngine().GetAudio()).get();
+        if (sound) {
+            errera::GetEngine().GetAudio().PlaySound(*sound);
+        }
     }
 }

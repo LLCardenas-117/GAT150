@@ -43,6 +43,63 @@ namespace errera {
 		float Length() const { return errera::math::sqrtf(LengthSquare()); }
 	};
 
+	template <typename T>
+	std::ostream& operator << (std::ostream& stream, const Vector3<T>& v) {
+		stream << "{" << v.r << ", " << v.g << ", " << v.b << "}";
+		return stream;
+	}
+
+	template <typename T>
+	std::istream& operator >> (std::istream& stream, Vector3<T>& v) {
+		char ch = '\0';
+
+		// { r, g, b}
+
+		// {
+		if (!(stream >> std::ws >> ch) || ch != '{') {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		};
+
+		// r
+		if (!(stream >> std::ws >> v.r)) {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		};
+
+		// ,
+		if (!(stream >> std::ws >> ch) || ch != ',') {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		};
+
+		// g
+		if (!(stream >> std::ws >> v.g)) {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		};
+
+		// ,
+		if (!(stream >> std::ws >> ch) || ch != ',') {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		};
+
+		// b
+		if (!(stream >> std::ws >> v.b)) {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		};
+
+		// }
+		if (!(stream >> std::ws >> ch) || ch != '}') {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		};
+
+		return stream;
+	}
+
 	using ivec3 = Vector3<int>;
 	using vec3 = Vector3<float>;
 }
