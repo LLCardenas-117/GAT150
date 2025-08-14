@@ -10,7 +10,8 @@ namespace errera {
 	bool Mesh::Load(const std::string& filename) {
 		std::string buffer;
 		if (!file::ReadTextFile(filename, buffer)) {
-			Logger::Error("Could not read file!");
+			Logger::Error("Could not read file: {}", filename);
+			return false;
 		}
 
 		std::stringstream stream(buffer);
@@ -22,6 +23,11 @@ namespace errera {
 		vec2 point;
 		while (stream >> point) {
 			_points.push_back(point);
+		}
+
+		if (!stream.eof()) {
+			Logger::Error("Could not parse file: {}", filename);
+			return false;
 		}
 
 		return true;

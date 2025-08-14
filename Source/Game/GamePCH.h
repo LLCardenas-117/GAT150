@@ -9,6 +9,7 @@
 
 // Components
 #include "Components/CircleCollider2D.h"
+#include "Components/MeshRenderer.h"
 #include "Components/RigidBody.h"
 #include "Components/SpriteRenderer.h"
 

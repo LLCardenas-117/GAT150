@@ -137,7 +137,7 @@ void SpaceGame::SpawnEnemy() {
     if (player) {
         // SAVING CODE FOR ENEMY CODE
         errera::vec2 position = player->transform.position + errera::random::onUnitCircle() * errera::random::getReal(200.0f, 500.0f);
-        errera::Transform transform{ position, errera::random::getReal(0.0f, 360.0f), 1.25f };
+        errera::Transform transform{ position, errera::random::getReal(0.0f, 360.0f), 10 }; //1.25f
         std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform);
         enemy->fireTime = 3;
         enemy->fireTimer = 5;
@@ -145,10 +145,13 @@ void SpaceGame::SpawnEnemy() {
         enemy->tag = "enemy";
 
         // Components
-        auto spriteRenderer = std::make_unique<errera::SpriteRenderer>();
-        spriteRenderer->textureName = "textures/Seraph.png";
+        //auto spriteRenderer = std::make_unique<errera::SpriteRenderer>();
+        //spriteRenderer->textureName = "textures/Seraph.png";
+        //enemy->AddComponent(std::move(spriteRenderer));
 
-        enemy->AddComponent(std::move(spriteRenderer));
+        auto meshRenderer = std::make_unique<errera::MeshRenderer>();
+        meshRenderer->meshName = "meshes/enemy.msh";
+        enemy->AddComponent(std::move(meshRenderer));
 
         auto rb = std::make_unique<errera::RigidBody>();
         rb->damping = 1.5f;

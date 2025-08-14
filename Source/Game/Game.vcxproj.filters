@@ -62,9 +62,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\Build\Assets\Meshes\enemy.txt">
-      <Filter>Assets</Filter>
-    </Text>
     <Text Include="..\..\Build\Assets\Meshes\enemy_missle.txt">
       <Filter>Assets</Filter>
     </Text>
@@ -77,5 +74,10 @@
     <Text Include="..\..\Build\Assets\Meshes\ring.txt">
       <Filter>Assets</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Build\Assets\Meshes\enemy.msh">
+      <Filter>Assets</Filter>
+    </None>
   </ItemGroup>
 </Project>
