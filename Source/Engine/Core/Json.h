@@ -2,7 +2,6 @@
 
 //#include <rapidjson/document.h>
 #include "../../rapidjson/include/rapidjson/document.h"
-//#include <string>
 #include "Math/Vector2.h"
 #include "Math/Vector3.h"
 

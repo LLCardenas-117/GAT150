@@ -3,6 +3,8 @@
 #include "Rocket.h"
 #include "SpaceGame.h"
 
+FACTORY_REGISTER(Player)
+
 void Player::Update(float dt) { //dt = Delta Time
     //if (errera::GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_W)) errera::GetEngine().GetAudio().PlaySound("unsc-engine");
 

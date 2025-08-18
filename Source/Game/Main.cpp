@@ -1,49 +1,73 @@
 #include "Game/SpaceGame.h"
 
+class Animal {
+public:
+    virtual void Speak() = 0;
+};
+
+class Cat : public Animal {
+public:
+    void Speak() override { std::cout << "Meow\n"; }
+};
+
+class Dog : public Animal {
+public:
+    void Speak() override { std::cout << "Bork\n"; }
+    void Fetch() { std::cout << "Got the ball!"; }
+};
+
+class Bird : public Animal {
+public:
+    void Speak() override { std::cout << "Kaww\n"; }
+};
+
+enum class AnimalType {
+    Cat,
+    Dog,
+    Bird
+};
+
+Animal* CreateAnimal(AnimalType id) {
+    Animal* animal = nullptr;
+
+    switch (id) {
+    case AnimalType::Cat:
+        animal = new Cat{};
+        break;
+
+    case AnimalType::Dog:
+        animal = new Dog{};
+        break;
+
+    case AnimalType::Bird:
+        animal = new Bird{};
+        break;
+
+    default:
+        break;
+    }
+
+    return animal;
+}
+
 int main(int argc, char* argv[]) {
     //errera::Logger::SetEnabledLevels(errera::LogLevel::Error | errera::LogLevel::Debug);
 
     errera::file::SetCurrentDirectory("Assets");
 
-    // load the json data from a file
-    std::string buffer;
-    errera::file::ReadTextFile("json.txt", buffer);
-    // show the contents of the json file (debug)
-    std::cout << buffer << std::endl;
+    auto animal = CreateAnimal(AnimalType::Cat);
 
-    // create json document from the json file contents
-    rapidjson::Document document;
-    errera::json::Load("json.txt", document);
+    if (animal) animal->Speak();
 
-    // read/show the data from the json file
-    std::string name;
-    int age;
-    float speed;
-    bool isAwake;
-    errera::vec2 position;
-    errera::vec3 color;
+    auto dog = dynamic_cast<Dog*>(animal);
+    if (dog) {
+        dog->Fetch();
+    }
 
-    // read the json data
-    /*errera::json::Read(document, "name", name);
-    errera::json::Read(document, "age", age);
-    errera::json::Read(document, "speed", speed);
-    errera::json::Read(document, "isAwake", isAwake);
-    errera::json::Read(document, "position", position);
-    errera::json::Read(document, "color", color);*/
+    //auto spriteRenderer = errera::Factory::Instance().Create("MeshRenderer");
+    //spriteRenderer->name = "Steve";
 
-    JSON_READ(document, name);
-    JSON_READ(document, age);
-    JSON_READ(document, speed);
-    JSON_READ(document, isAwake);
-    JSON_READ(document, position);
-    JSON_READ(document, color);
-
-    // show the data
-    std::cout << name << " " << age << " " << speed << " " << isAwake << std::endl;
-    std::cout << position.x << " " << position.y << std::endl;
-    std::cout << color.r << " " << color.g << " " << color.b << " " << std::endl;
-
-    return 0;
+    //return 0;
     
     // Initialize Engine Systems
     errera::GetEngine().Initialize();

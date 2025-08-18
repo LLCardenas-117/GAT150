@@ -2,6 +2,8 @@
 #include "Renderer/Renderer.h"
 
 namespace errera {
+	FACTORY_REGISTER(SpriteRenderer)
+
 	void SpriteRenderer::Update(float dt) {
 		//
 	}

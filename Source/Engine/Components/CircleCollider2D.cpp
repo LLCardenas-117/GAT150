@@ -2,6 +2,8 @@
 #include "CircleCollider2D.h"
 
 namespace errera {
+	FACTORY_REGISTER(CircleCollider2D)
+
 	void errera::CircleCollider2D::Update(float dt) {
 		//
 	}

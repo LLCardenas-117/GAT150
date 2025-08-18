@@ -3,6 +3,8 @@
 #include "Engine.h"
 #include "Player.h"
 
+FACTORY_REGISTER(Rocket)
+
 void Rocket::Update(float dt) {
     errera::vec2 force = errera::vec2{ 1, 0 }.Rotate(errera::math::degToRad(transform.rotation)) * speed;
 

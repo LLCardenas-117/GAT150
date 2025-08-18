@@ -3,6 +3,8 @@
 #include "Engine.h"
 
 namespace errera {
+	FACTORY_REGISTER(AudioSource)
+
 	void AudioSource::Update(float dt) {
 		//
 	}

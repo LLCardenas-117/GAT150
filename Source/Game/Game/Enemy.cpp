@@ -4,6 +4,8 @@
 #include "Rocket.h"
 #include "GameData.h"
 
+FACTORY_REGISTER(Enemy)
+
 void Enemy::Update(float dt){
 
     // Particals to the engine
@@ -17,10 +19,10 @@ void Enemy::Update(float dt){
 
     bool playerSeen = false;
 
-    Player* player = scene->GetActorByName<Player>("player");
+    Actor* player = owner->scene->GetActorByName<Actor>("player");
     if (player) {
         errera::vec2 direction{ 1, 0 };
-        direction = player->transform.position - transform.position;
+        direction = player->transform.position - owner->transform.position;
         direction = direction.Normalized();
 
         errera::vec2 forward = errera::vec2{ 1,0 }.Rotate(errera::math::degToRad(transform.rotation));

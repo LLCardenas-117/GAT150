@@ -11,9 +11,11 @@ namespace errera {
 	class ResourceManager : public Singleton<ResourceManager> {
 	public:
 		template<typename T, typename ... Args>
+		requires std::derived_from<T, Resource>
 		res_t<T> Get(const std::string& filename, Args&& ... args);
 
 		template<typename T, typename ... Args>
+		requires std::derived_from<T, Resource>
 		res_t<T> GetWithID(const std::string& id, const std::string& filename, Args&& ... args);
 
 		void Clear() { _resources.clear(); }
@@ -28,11 +30,13 @@ namespace errera {
 	};
 
 	template<typename T, typename ... Args>
+	requires std::derived_from<T, Resource>
 	inline res_t<T> ResourceManager::Get(const std::string& filename, Args&& ... args) {
 		return GetWithID<T>(filename, filename, std::forward<Args>(args)...);
 	}
 
 	template<typename T, typename ...Args>
+	requires std::derived_from<T, Resource>
 	inline res_t<T> ResourceManager::GetWithID(const std::string& id, const std::string& filename, Args && ...args) {
 		std::string key = tolower(id);
 

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Framework/Actor.h"
+#include "Framework/Component.h"
 
-class Enemy : public errera::Actor {
+class Enemy : public errera::Component {
 public:
 	float speed = 200;
 	float fireTimer = 0;
@@ -10,12 +10,12 @@ public:
 
 public:
 	Enemy() = default;
-	Enemy(const errera::Transform& transform) :
+	/*Enemy(const errera::Transform& transform) :
 		Actor{ transform }
 	{
-	}
+	}*/
 
 	void Update(float dt) override;
 
-	void OnCollision(Actor* other) override;
+	void OnCollision(class Actor* other);
 };

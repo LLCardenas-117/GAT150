@@ -2,6 +2,8 @@
 #include "Renderer/Mesh.h"
 
 namespace errera {
+	FACTORY_REGISTER(MeshRenderer)
+
 	void MeshRenderer::Update(float dt) {
 		//
 	}

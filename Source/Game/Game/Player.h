@@ -1,7 +1,7 @@
 #pragma once
-#include "Framework/Actor.h"
+#include "Framework/Component.h"
 
-class Player : public errera::Actor {
+class Player : public errera::Component {
 public:
 	float speed = 200;
 	float rotationRate = 180;
@@ -10,12 +10,12 @@ public:
 
 public:
 	Player() = default;
-	Player(const errera::Transform& transform) :
+	/*Player(const errera::Transform& transform) :
 		Actor{ transform }
-	{}
+	{}*/
 
 	void Update(float dt) override;
 
-	void OnCollision(Actor* other) override;
+	void OnCollision(class Actor* other);
 
 };
