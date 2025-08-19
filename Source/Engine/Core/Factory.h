@@ -70,10 +70,18 @@ namespace errera {
 		auto it = _registry.find(key);
 		if (it != _registry.end()) {
 			// Found creator, create object
-			return it->second->Create();
-		}
+			auto object = it->second->Create();
+			T* derived = dynamic_cast<T*>(object.get());
+			if (derived) {
+				object.release();
+				return std::unique_ptr<T>(derived);
+			}
 
-		Logger::Error("Could not create factory object: {}", name);
+			Logger::Error("Type mismatch factory object: {}", name);
+		}
+		else {
+			Logger::Error("Could not create factory object: {}", name);
+		}
 
 		return nullptr;
 	}

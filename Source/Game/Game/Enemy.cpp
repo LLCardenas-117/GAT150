@@ -1,5 +1,6 @@
 #include "Enemy.h"
 
+#include "../GamePCH.h"
 #include "Player.h"
 #include "Rocket.h"
 #include "GameData.h"
@@ -7,6 +8,7 @@
 FACTORY_REGISTER(Enemy)
 
 void Enemy::Update(float dt){
+    /*
 
     // Particals to the engine
     errera::Particle particle;
@@ -81,15 +83,16 @@ void Enemy::Update(float dt){
     }
 
     Actor::Update(dt);
+    */
 }
 
-void Enemy::OnCollision(Actor* other) {
-    if (tag != other->tag) {
-        destroyed = true;
-        scene->GetGame()->AddPoints(100);
+void Enemy::OnCollision(errera::Actor* other) {
+    if (owner->tag != other->tag) {
+        owner->destroyed = true;
+        owner->scene->GetGame()->AddPoints(100);
         for (int i = 0; i < 100; i++) {
             errera::Particle particle;
-            particle.position = transform.position;
+            particle.position = owner->transform.position;
 			particle.velocity = errera::random::onUnitCircle() * errera::random::getReal(10.0f, 200.0f);
             particle.color = errera::vec3{ 1, 1, 1 };
             particle.lifespan = 2;

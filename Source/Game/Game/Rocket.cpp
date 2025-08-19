@@ -1,11 +1,13 @@
 #include "Rocket.h"
 
+#include "../GamePCH.h"
 #include "Engine.h"
 #include "Player.h"
 
 FACTORY_REGISTER(Rocket)
 
 void Rocket::Update(float dt) {
+    /*
     errera::vec2 force = errera::vec2{ 1, 0 }.Rotate(errera::math::degToRad(transform.rotation)) * speed;
 
     auto* rb = GetComponent<errera::RigidBody>();
@@ -29,15 +31,16 @@ void Rocket::Update(float dt) {
     errera::GetEngine().GetParticleSystem().AddParticle(particle);
 
     Actor::Update(dt);
+    */
 }
 
-void Rocket::OnCollision(Actor* other) {
-    if (tag != other->tag) {
-        destroyed = true;
+void Rocket::OnCollision(errera::Actor* other) {
+    if (owner->tag != other->tag) {
+        owner->destroyed = true;
 
-        auto sound = errera::Resources().Get<errera::AudioClip>("audio/explosion.wav", errera::GetEngine().GetAudio()).get();
+        /*auto sound = errera::Resources().Get<errera::AudioClip>("audio/explosion.wav", errera::GetEngine().GetAudio()).get();
         if (sound) {
             errera::GetEngine().GetAudio().PlaySound(*sound);
-        }
+        }*/
     }
 }

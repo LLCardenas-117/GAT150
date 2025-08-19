@@ -1,11 +1,16 @@
 #include "SpaceGame.h"
 
+#include "../GamePCH.h"
 #include "Enemy.h"
 #include "Player.h"
 #include "ringBlast.h"
 
 bool SpaceGame::Initialize() {
     _scene = std::make_unique<errera::Scene>(this);
+
+    errera::json::document_t document;
+    errera::json::Load("scene.json", document);
+    _scene->Read(document);
 
     _titleText = std::make_unique<errera::Text>(errera::Resources().GetWithID<errera::Font>("title_font", "arcadeclassic.ttf", 128.0f));
     _scoreText = std::make_unique<errera::Text>(errera::Resources().GetWithID<errera::Font>("ui_font", "arcadeclassic.ttf", 48.0f));
@@ -133,6 +138,7 @@ void SpaceGame::Shutdown() {
 }
 
 void SpaceGame::SpawnEnemy() {
+    /*
     Player* player = _scene->GetActorByName<Player>("player");
     if (player) {
         // SAVING CODE FOR ENEMY CODE
@@ -163,9 +169,11 @@ void SpaceGame::SpawnEnemy() {
 
         _scene->AddActor(std::move(enemy));
     }
+    */
 }
 
 void SpaceGame::SpawnPlayer() {
+    /*
     // Create Player
     errera::Transform transform{ errera::vec2{ errera::GetEngine().GetRenderer().GetWidth() * 0.5f , errera::GetEngine().GetRenderer().GetHeight() * 0.5f}, 0, 2.5f };
     auto player = std::make_unique<Player>(transform);
@@ -189,9 +197,11 @@ void SpaceGame::SpawnPlayer() {
     player->AddComponent(std::move(collider));
 
     _scene->AddActor(std::move(player));
+    */
 }
 
 void SpaceGame::SpawnRing() {
+    /*
     Player* player = _scene->GetActorByName<Player>("player");
     if (player) {
         auto sound = errera::Resources().Get<errera::AudioClip>("audio/seismic_charges.wav", errera::GetEngine().GetAudio()).get();
@@ -219,4 +229,5 @@ void SpaceGame::SpawnRing() {
         _scene->AddActor(std::move(ring));
         _ring -= 1;
     }
-};
+    */
+}

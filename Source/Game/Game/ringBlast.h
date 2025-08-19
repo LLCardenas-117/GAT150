@@ -10,12 +10,8 @@ public:
 
 public:
 	ringBlast() = default;
-	/*ringBlast(const errera::Transform& transform) :
-		Actor{ transform }
-	{
-	}*/
 
 	void Update(float dt) override;
 
-	void OnCollision(class Actor* other);
+	void OnCollision(class errera::Actor* other);
 };

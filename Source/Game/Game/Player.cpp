@@ -1,11 +1,14 @@
 #include "Player.h"
 
+#include "../GamePCH.h"
 #include "Rocket.h"
 #include "SpaceGame.h"
 
 FACTORY_REGISTER(Player)
 
 void Player::Update(float dt) { //dt = Delta Time
+    /*
+
     //if (errera::GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_W)) errera::GetEngine().GetAudio().PlaySound("unsc-engine");
 
     // Engine particle
@@ -76,16 +79,17 @@ void Player::Update(float dt) { //dt = Delta Time
     }
 
     Actor::Update(dt);
+    */
 }
 
-void Player::OnCollision(Actor* other) {
-    if (tag != other->tag) {
-        destroyed = true;
-		dynamic_cast<SpaceGame*>(scene->GetGame())->OnPlayerDeath();
+void Player::OnCollision(errera::Actor* other) {
+    if (owner->tag != other->tag) {
+        owner->destroyed = true;
+		dynamic_cast<SpaceGame*>(owner->scene->GetGame())->OnPlayerDeath();
         
-        auto sound = errera::Resources().Get<errera::AudioClip>("audio/explosion.wav", errera::GetEngine().GetAudio()).get();
+        /*auto sound = errera::Resources().Get<errera::AudioClip>("audio/explosion.wav", errera::GetEngine().GetAudio()).get();
         if (sound) {
             errera::GetEngine().GetAudio().PlaySound(*sound);
-        }
+        }*/
     }
 }

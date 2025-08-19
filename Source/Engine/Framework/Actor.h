@@ -26,10 +26,12 @@ namespace errera {
 			transform{transform}
 		{}
 
+		void Read(const json::value_t& value) override;
+
 		virtual void Update(float dt);
 		virtual void Draw(class Renderer& renderer);
 
-		virtual void OnCollision(Actor* other) = 0;
+		virtual void OnCollision(Actor* other) {}
 
 		// Components
 		void AddComponent(std::unique_ptr<Component> component);
@@ -42,7 +44,6 @@ namespace errera {
 
 	protected:
 		std::vector<std::unique_ptr<Component>> _components;
-		//res_t<Texture> _texture;
 	};
 
 	template<typename T>
