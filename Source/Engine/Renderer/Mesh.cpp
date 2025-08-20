@@ -3,10 +3,10 @@
 
 namespace errera {
 	/// <summary>
-	/// 
+	/// Loads mesh data from a text file, including color and points.
 	/// </summary>
-	/// <param name="filename"></param>
-	/// <returns></returns>
+	/// <param name="filename">The path to the text file containing mesh data.</param>
+	/// <returns>True if the mesh was loaded successfully; false otherwise.</returns>
 	bool Mesh::Load(const std::string& filename) {
 		std::string buffer;
 		if (!file::ReadTextFile(filename, buffer)) {
@@ -34,9 +34,12 @@ namespace errera {
 	}
 
 	/// <summary>
-	/// 
+	/// Draws the mesh by rendering its points as connected lines with specified position, rotation, and scale.
 	/// </summary>
-	/// <param name="renderer"></param>
+	/// <param name="renderer">Reference to the Renderer object used for drawing.</param>
+	/// <param name="position">The position (2D vector) where the mesh will be drawn.</param>
+	/// <param name="rotation">The rotation angle in degrees to apply to the mesh.</param>
+	/// <param name="scale">The scaling factor to apply to the mesh.</param>
 	void Mesh::Draw(Renderer& renderer, const vec2& position, float rotation, float scale){
 		// Checks if points are empty, if so then return
 		if (_points.empty()) return;
@@ -53,16 +56,16 @@ namespace errera {
 	}
 
 	/// <summary>
-	/// 
+	/// Draws the mesh using the specified renderer and transform.
 	/// </summary>
-	/// <param name="renderer"></param>
-	/// <param name="transform"></param>
+	/// <param name="renderer">The renderer used to draw the mesh.</param>
+	/// <param name="transform">The transform specifying the position, rotation, and scale for drawing the mesh.</param>
 	void Mesh::Draw(Renderer& renderer, const Transform& transform) {
 		Draw(renderer, transform.position, transform.rotation, transform.scale);
 	}
 
 	/// <summary>
-	/// 
+	/// Calculates and updates the radius of the mesh as the maximum distance from the origin among its points.
 	/// </summary>
 	void Mesh::CalculateRadius() {
 		_radius = 0;

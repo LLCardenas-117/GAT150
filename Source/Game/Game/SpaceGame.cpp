@@ -105,6 +105,8 @@ void SpaceGame::Update(float dt) {
 }
 
 void SpaceGame::Draw(errera::Renderer& renderer) {
+    _scene->Draw(renderer);
+
     if (_gameState == GameState::Title) {
         _titleText->Create(renderer, "Halo Space", errera::vec3{ 0, 1, 0 });
         _titleText->Draw(renderer, (float)renderer.GetHeight() / 3, (float)renderer.GetWidth() / 3);
@@ -123,8 +125,6 @@ void SpaceGame::Draw(errera::Renderer& renderer) {
 
     _ringChargeText->Create(renderer, "Ring Charges " + std::to_string(_ring), errera::vec3{ 1, 1, 1 });
     _ringChargeText->Draw(renderer, 10, (float)renderer.GetHeight() - 100);
-
-    _scene->Draw(renderer);
 
 	errera::GetEngine().GetParticleSystem().Draw(renderer);
 }

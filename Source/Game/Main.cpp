@@ -1,73 +1,9 @@
 #include "Game/SpaceGame.h"
 
-class Animal {
-public:
-    virtual void Speak() = 0;
-};
-
-class Cat : public Animal {
-public:
-    void Speak() override { std::cout << "Meow\n"; }
-};
-
-class Dog : public Animal {
-public:
-    void Speak() override { std::cout << "Bork\n"; }
-    void Fetch() { std::cout << "Got the ball!"; }
-};
-
-class Bird : public Animal {
-public:
-    void Speak() override { std::cout << "Kaww\n"; }
-};
-
-enum class AnimalType {
-    Cat,
-    Dog,
-    Bird
-};
-
-Animal* CreateAnimal(AnimalType id) {
-    Animal* animal = nullptr;
-
-    switch (id) {
-    case AnimalType::Cat:
-        animal = new Cat{};
-        break;
-
-    case AnimalType::Dog:
-        animal = new Dog{};
-        break;
-
-    case AnimalType::Bird:
-        animal = new Bird{};
-        break;
-
-    default:
-        break;
-    }
-
-    return animal;
-}
-
 int main(int argc, char* argv[]) {
     //errera::Logger::SetEnabledLevels(errera::LogLevel::Error | errera::LogLevel::Debug);
 
     errera::file::SetCurrentDirectory("Assets");
-
-    auto animal = CreateAnimal(AnimalType::Cat);
-
-    if (animal) animal->Speak();
-
-    auto dog = dynamic_cast<Dog*>(animal);
-    if (dog) {
-        dog->Fetch();
-    }
-
-    //auto spriteRenderer = errera::Factory::Instance().Create("MeshRenderer");
-    //spriteRenderer->name = "Steve";
-
-    //return 0;
     
     // Initialize Engine Systems
     errera::GetEngine().Initialize();

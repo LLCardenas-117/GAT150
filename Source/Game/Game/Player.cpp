@@ -7,15 +7,13 @@
 FACTORY_REGISTER(Player)
 
 void Player::Update(float dt) { //dt = Delta Time
-    /*
-
     //if (errera::GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_W)) errera::GetEngine().GetAudio().PlaySound("unsc-engine");
 
     // Engine particle
 	errera::Particle particle;
 
-    particle.position = transform.position + errera::vec2{ -50, 0 }.Rotate(errera::math::degToRad(transform.rotation));
-    particle.velocity = errera::vec2{ errera::random::getReal(-80.0f, -30.0f), 0 }.Rotate(errera::math::degToRad(transform.rotation + errera::random::getReal(-90.0f, 90.0f)));
+    particle.position = owner->transform.position + errera::vec2{ -50, 0 }.Rotate(errera::math::degToRad(owner->transform.rotation));
+    particle.velocity = errera::vec2{ errera::random::getReal(-80.0f, -30.0f), 0 }.Rotate(errera::math::degToRad(owner->transform.rotation + errera::random::getReal(-90.0f, 90.0f)));
 	particle.color = errera::vec3{ 1.0f, 1.0f, 1.0f };
 	particle.lifespan = 0.5f;
     errera::GetEngine().GetParticleSystem().AddParticle(particle);
@@ -25,7 +23,7 @@ void Player::Update(float dt) { //dt = Delta Time
     if (errera::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_A)) rotate = -1;
     if (errera::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_D)) rotate = +1;
     
-    transform.rotation += (rotate * rotationRate) * dt;
+    owner->transform.rotation += (rotate * rotationRate) * dt;
 
     // Thrust
     float thrust = 0;
@@ -34,16 +32,17 @@ void Player::Update(float dt) { //dt = Delta Time
     if (errera::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_S)) thrust = -1;
 
     errera::vec2 direction{ 1, 0 };
-    errera::vec2 force = direction.Rotate(errera::math::degToRad(transform.rotation)) * thrust * speed;
+    errera::vec2 force = direction.Rotate(errera::math::degToRad(owner->transform.rotation)) * thrust * speed;
 
-    auto* rb = GetComponent<errera::RigidBody>();
+    auto* rb = owner->GetComponent<errera::RigidBody>();
     if (rb) {
         rb->velocity += force * dt;
     }
 
-    transform.position.x = errera::math::wrap(transform.position.x, 0.0f, (float)errera::GetEngine().GetRenderer().GetWidth());
-    transform.position.y = errera::math::wrap(transform.position.y, 0.0f, (float)errera::GetEngine().GetRenderer().GetHeight());
+    owner->transform.position.x = errera::math::wrap(owner->transform.position.x, 0.0f, (float)errera::GetEngine().GetRenderer().GetWidth());
+    owner->transform.position.y = errera::math::wrap(owner->transform.position.y, 0.0f, (float)errera::GetEngine().GetRenderer().GetHeight());
 
+    /*
     // check fire key pressed
     // spawn rocket with staying to the players position
     fireTimer -= dt;
@@ -92,4 +91,12 @@ void Player::OnCollision(errera::Actor* other) {
             errera::GetEngine().GetAudio().PlaySound(*sound);
         }*/
     }
+}
+
+void Player::Read(const errera::json::value_t& value) {
+    Object::Read(value);
+
+    JSON_READ(value, speed);
+    JSON_READ(value, rotationRate);
+    JSON_READ(value, fireTime);
 }

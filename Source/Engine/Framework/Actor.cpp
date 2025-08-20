@@ -49,6 +49,19 @@ namespace errera {
 		JSON_READ(value, lifespan);
 
 		if (JSON_HAS(value, transform)) transform.Read(JSON_GET(value, transform));
+
+		// Read components
+		if (JSON_HAS(value, components)) {
+			for (auto& componentValue : JSON_GET(value, components).GetArray()) {
+				std::string type;
+				JSON_READ(componentValue, type);
+
+				auto component = Factory::Instance().Create<Component>(type);
+				component->Read(componentValue);
+
+				AddComponent(std::move(component));
+			}
+		}
 	}
 
 }

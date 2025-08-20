@@ -11,7 +11,7 @@
 namespace errera {
 	class Actor : public Object {
 	public:
-		std::string name;
+		//std::string name;
 		std::string tag;
 
 		bool destroyed{ false };

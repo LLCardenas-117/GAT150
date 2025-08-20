@@ -40,16 +40,39 @@ namespace errera {
 
 		//square root (x * x + y * y + z * z)
 
+		/// <summary>
+		/// Calculates the squared length (magnitude) of a 3D vector.
+		/// </summary>
+		/// <returns>The sum of the squares of the x, y, and z components of the vector.</returns>
 		float LengthSquare() const { return (x * x) + (y * y) + (z * z); }
+
+		/// <summary>
+		/// Calculates the length (magnitude) of the object.
+		/// </summary>
+		/// <returns>The length as a floating-point value.</returns>
 		float Length() const { return errera::math::sqrtf(LengthSquare()); }
 	};
 
+	/// <summary>
+	/// Outputs a Vector3 object to a stream in the format {r, g, b}.
+	/// </summary>
+	/// <typeparam name="T">The type of the Vector3 components.</typeparam>
+	/// <param name="stream">The output stream to write to.</param>
+	/// <param name="v">The Vector3 object to output.</param>
+	/// <returns>A reference to the output stream after writing the Vector3.</returns>
 	template <typename T>
 	std::ostream& operator << (std::ostream& stream, const Vector3<T>& v) {
 		stream << "{" << v.r << ", " << v.g << ", " << v.b << "}";
 		return stream;
 	}
 
+	/// <summary>
+	/// Extracts a Vector3<T> object from an input stream in the format { r, g, b }. Sets the stream to fail state if the format is incorrect.
+	/// </summary>
+	/// <typeparam name="T">The type of the vector components (e.g., float, double, int).</typeparam>
+	/// <param name="stream">The input stream to read from.</param>
+	/// <param name="v">The Vector3<T> object to populate with the extracted values.</param>
+	/// <returns>A reference to the input stream after extraction.</returns>
 	template <typename T>
 	std::istream& operator >> (std::istream& stream, Vector3<T>& v) {
 		char ch = '\0';

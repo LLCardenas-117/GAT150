@@ -5,9 +5,9 @@
 
 namespace errera {
 	/// <summary>
-	/// 
+	/// Updates the scene by processing actor updates, removing destroyed actors, and handling collisions between actors.
 	/// </summary>
-	/// <param name="dt"></param>
+	/// <param name="dt">The time delta in seconds since the last update.</param>
 	void Scene::Update(float dt) {
 		// Update all actors
 		for (auto& actor : _actors) {
@@ -46,9 +46,9 @@ namespace errera {
 	}
 
 	/// <summary>
-	/// 
+	/// Draws all active actors in the scene using the specified renderer.
 	/// </summary>
-	/// <param name="renderer"></param>
+	/// <param name="renderer">The renderer used to draw the actors.</param>
 	void Scene::Draw(Renderer& renderer) {
 		for (auto& actor : _actors) {
 			if (actor->active) {
@@ -58,27 +58,30 @@ namespace errera {
 	}
 
 	/// <summary>
-	/// 
+	/// Adds an actor to the scene, transferring ownership of the actor to the scene.
 	/// </summary>
-	/// <param name="actor"></param>
+	/// <param name="actor">A unique pointer to the actor to be added to the scene.</param>
 	void Scene::AddActor(std::unique_ptr<class Actor> actor) {
 		actor->scene = this;
 		_actors.push_back(std::move(actor));
 	}
 
 	/// <summary>
-	/// 
+	/// Removes all actors from the scene.
 	/// </summary>
 	void Scene::RemoveAllActors() {
 		_actors.clear();
 	}
 
 	void Scene::Read(const json::value_t& value) {
-		for (auto& actorValue : value["actors"].GetArray()) {
-			auto actor = Factory::Instance().Create<Actor>("Actor");
-			actor->Read(actorValue);
+		// Read actor
+		if (JSON_HAS(value, actors)) {
+			for (auto& actorValue : JSON_GET(value, actors).GetArray()) {
+				auto actor = Factory::Instance().Create<Actor>("Actor");
+				actor->Read(actorValue);
 
-			AddActor(std::move(actor));
+				AddActor(std::move(actor));
+			}
 		}
 	}
 }

@@ -4,10 +4,10 @@
 
 namespace errera {
     /// <summary>
-    /// 
+    /// Checks if an FMOD operation was successful and logs an error if it was not.
     /// </summary>
-    /// <param name="result"></param>
-    /// <returns></returns>
+    /// <param name="result">The FMOD_RESULT value returned by an FMOD operation.</param>
+    /// <returns>True if the result indicates success (FMOD_OK); false otherwise.</returns>
     bool AudioSystem::CheckFMODResult(FMOD_RESULT result) {
         if (result != FMOD_OK) {
             Logger::Error("FMOD_ErrorString: {}", FMOD_ErrorString(result));
@@ -17,9 +17,9 @@ namespace errera {
     }
 
     /// <summary>
-    /// 
+    /// Initializes the audio system using FMOD.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Returns true if the audio system was successfully initialized; otherwise, returns false.</returns>
     bool AudioSystem::Initialize() {
         FMOD_RESULT result = FMOD::System_Create(&_system);
 
@@ -35,25 +35,25 @@ namespace errera {
     }
 
     /// <summary>
-    /// 
+    /// Shuts down the audio system and releases associated resources.
     /// </summary>
     void AudioSystem::Shutdown() {
         CheckFMODResult(_system->release());
     }
 
     /// <summary>
-    /// 
+    /// Updates the audio system state by processing pending audio operations.
     /// </summary>
     void AudioSystem::Update() {
         CheckFMODResult(_system->update());
     }
 
     /// <summary>
-    /// 
+    /// Adds a sound to the audio system using the specified filename and name.
     /// </summary>
-    /// <param name="filename"></param>
-    /// <param name="name"></param>
-    /// <returns></returns>
+    /// <param name="filename">The path to the sound file to be loaded.</param>
+    /// <param name="name">The name to associate with the sound. If empty, the filename is used as the key.</param>
+    /// <returns>True if the sound was successfully added; false if the name already exists or loading failed.</returns>
     bool AudioSystem::AddSound(const std::string& filename, const std::string& name) {
         std::string key = (name.empty()) ? filename : name;
         key = tolower(key);
@@ -75,6 +75,7 @@ namespace errera {
         return true;
     }
 
+    ///
     bool AudioSystem::PlaySound(const std::string& name) {
         std::string key = name;
         key = tolower(key);

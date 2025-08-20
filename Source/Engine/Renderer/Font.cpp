@@ -2,7 +2,7 @@
 
 namespace errera {
 	/// <summary>
-	/// 
+	/// Destroys the Font object and releases associated resources.
 	/// </summary>
 	Font::~Font() {
 		if (_ttfFont != nullptr) {
@@ -11,11 +11,11 @@ namespace errera {
 	}
 
 	/// <summary>
-	/// 
+	/// Loads a font from the specified file with the given size.
 	/// </summary>
-	/// <param name="name"></param>
-	/// <param name="fontSize"></param>
-	/// <returns></returns>
+	/// <param name="name">The path to the font file to load.</param>
+	/// <param name="fontSize">The desired size of the font.</param>
+	/// <returns>True if the font was loaded successfully; false otherwise.</returns>
 	bool Font::Load(const std::string& name, float fontSize) {
 		_ttfFont = TTF_OpenFont(name.c_str(), fontSize);
 		if (_ttfFont == nullptr) {

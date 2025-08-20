@@ -7,31 +7,27 @@
 FACTORY_REGISTER(Rocket)
 
 void Rocket::Update(float dt) {
-    /*
-    errera::vec2 force = errera::vec2{ 1, 0 }.Rotate(errera::math::degToRad(transform.rotation)) * speed;
+    errera::vec2 force = errera::vec2{ 1, 0 }.Rotate(errera::math::degToRad(owner->transform.rotation)) * speed;
 
-    auto* rb = GetComponent<errera::RigidBody>();
+    auto* rb = owner->GetComponent<errera::RigidBody>();
     if (rb) {
         rb->velocity = force;
     }
 
-    transform.position.x = errera::math::wrap(transform.position.x, 0.0f, (float)errera::GetEngine().GetRenderer().GetWidth());
-    transform.position.y = errera::math::wrap(transform.position.y, 0.0f, (float)errera::GetEngine().GetRenderer().GetHeight());
+    owner->transform.position.x = errera::math::wrap(owner->transform.position.x, 0.0f, (float)errera::GetEngine().GetRenderer().GetWidth());
+    owner->transform.position.y = errera::math::wrap(owner->transform.position.y, 0.0f, (float)errera::GetEngine().GetRenderer().GetHeight());
 
-    float angle = transform.rotation + errera::random::getReal(-30.0f, 30.0f);
+    float angle = owner->transform.rotation + errera::random::getReal(-30.0f, 30.0f);
     errera::vec2 velocity = errera::vec2{ 1,0 }.Rotate(errera::math::degToRad(angle));
     velocity *= errera::random::getReal(80.0f, 150.0f);
 
     errera::Particle particle;
 
-    particle.position = transform.position + errera::vec2{ -50, 0 }.Rotate(errera::math::degToRad(transform.rotation));
-    particle.velocity = errera::vec2{ errera::random::getReal(-80.0f, -30.0f), 0 }.Rotate(errera::math::degToRad(transform.rotation + errera::random::getReal(-90.0f, 90.0f)));
-    particle.color = (tag == "enemy") ? errera::vec3{ 1, 0, 0 } : errera::vec3{ 0, 1, 0 };
+    particle.position = owner->transform.position + errera::vec2{ -50, 0 }.Rotate(errera::math::degToRad(owner->transform.rotation));
+    particle.velocity = errera::vec2{ errera::random::getReal(-80.0f, -30.0f), 0 }.Rotate(errera::math::degToRad(owner->transform.rotation + errera::random::getReal(-90.0f, 90.0f)));
+    particle.color = (owner->tag == "enemy") ? errera::vec3{ 1, 0, 0 } : errera::vec3{ 0, 1, 0 };
     particle.lifespan = 0.5f;
     errera::GetEngine().GetParticleSystem().AddParticle(particle);
-
-    Actor::Update(dt);
-    */
 }
 
 void Rocket::OnCollision(errera::Actor* other) {
@@ -43,4 +39,10 @@ void Rocket::OnCollision(errera::Actor* other) {
             errera::GetEngine().GetAudio().PlaySound(*sound);
         }*/
     }
+}
+
+void Rocket::Read(const errera::json::value_t& value) {
+    Object::Read(value);
+
+    JSON_READ(value, speed);
 }

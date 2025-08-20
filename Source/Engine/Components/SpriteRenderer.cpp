@@ -9,7 +9,7 @@ namespace errera {
 	}
 
 	void SpriteRenderer::Draw(Renderer& renderer) {
-		auto texture = Resources().Get<Texture>(textureName, renderer).get();
+		auto texture = Resources().Get<Texture>(textureName, renderer);
 
 		if (texture) {
 			renderer.DrawTexture(*texture,
@@ -24,6 +24,6 @@ namespace errera {
 	void SpriteRenderer::Read(const json::value_t& value) {
 		Object::Read(value);
 
-		JSON_READ(value, textureName);
+		JSON_READ_NAME(value, "texture_name", textureName);
 	}
 }

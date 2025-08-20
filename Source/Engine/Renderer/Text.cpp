@@ -2,7 +2,7 @@
 
 namespace errera {
 	/// <summary>
-	/// 
+	/// Destroys the Text object and releases its associated SDL texture if it exists.
 	/// </summary>
 	errera::Text::~Text() {
 		if (_texture != nullptr) {
@@ -11,12 +11,12 @@ namespace errera {
 	}
 
 	/// <summary>
-	/// 
+	/// Creates a text texture using the specified renderer, text string, and color.
 	/// </summary>
-	/// <param name="renderer"></param>
-	/// <param name="text"></param>
-	/// <param name="color"></param>
-	/// <returns></returns>
+	/// <param name="renderer">Reference to the Renderer object used for rendering the texture.</param>
+	/// <param name="text">The string to be rendered as text.</param>
+	/// <param name="color">The color of the text, represented as a vec3 (RGB components).</param>
+	/// <returns>Returns true if the text texture was successfully created; otherwise, returns false.</returns>
 	bool errera::Text::Create(Renderer& renderer, const std::string& text, const vec3& color) {
 		// create a surface using the font, text string and color
 		SDL_Color c{ (uint8_t)(color.r * 255), (uint8_t)(color.g * 255), (uint8_t)(color.b * 255), 255 };
@@ -41,11 +41,11 @@ namespace errera {
 	}
 
 	/// <summary>
-	/// 
+	/// Draws the text texture at the specified position using the given renderer.
 	/// </summary>
-	/// <param name="renderer"></param>
-	/// <param name="x"></param>
-	/// <param name="y"></param>
+	/// <param name="renderer">The renderer used to draw the text.</param>
+	/// <param name="x">The x-coordinate where the text will be drawn.</param>
+	/// <param name="y">The y-coordinate where the text will be drawn.</param>
 	void errera::Text::Draw(Renderer& renderer, float x, float y) {
 		// get the texture width and height
 		float width, height;

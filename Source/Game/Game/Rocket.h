@@ -16,4 +16,6 @@ public:
 	void Update(float dt) override;
 
 	void OnCollision(class errera::Actor* other);
+
+	void Read(const errera::json::value_t& value) override;
 };

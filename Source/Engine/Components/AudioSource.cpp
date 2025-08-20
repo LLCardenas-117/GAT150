@@ -17,5 +17,11 @@ namespace errera {
 		}
 	}
 
+	void AudioSource::Read(const json::value_t& value) {
+		Object::Read(value);
+
+		JSON_READ(value, audioClipName);
+	}
+
 }
 
