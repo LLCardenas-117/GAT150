@@ -170,34 +170,20 @@ void SpaceGame::SpawnEnemy() {
         _scene->AddActor(std::move(enemy));
     }
     */
+
+    errera::Actor* player = _scene->GetActorByName<errera::Actor>("player");
+    if (player) {
+        errera::vec2 position = player->transform.position + errera::random::onUnitCircle() * errera::random::getReal(200.0f, 500.0f);
+        errera::Transform transform{ position, errera::random::getReal(0.0f, 360.0f), 1.25 };
+
+        auto enemy = errera::Instantiate("enemy", transform);
+        _scene->AddActor(std::move(enemy));
+    }
 }
 
 void SpaceGame::SpawnPlayer() {
-    /*
-    // Create Player
-    errera::Transform transform{ errera::vec2{ errera::GetEngine().GetRenderer().GetWidth() * 0.5f , errera::GetEngine().GetRenderer().GetHeight() * 0.5f}, 0, 2.5f };
-    auto player = std::make_unique<Player>(transform);
-    player->speed = 1000.0f;
-    player->rotationRate = 280.0f;
-    player->name = "player";
-    player->tag = "player";
-
-    // Components
-    auto spriteRenderer = std::make_unique<errera::SpriteRenderer>();
-    spriteRenderer->textureName = "textures/longsword.png";
-
-    player->AddComponent(std::move(spriteRenderer));
-
-    auto rb = std::make_unique<errera::RigidBody>();
-    rb->damping = 0.75f;
-    player->AddComponent(std::move(rb));
-
-    auto collider = std::make_unique<errera::CircleCollider2D>();
-    collider->radius = 60;
-    player->AddComponent(std::move(collider));
-
+    auto player = errera::Factory::Instance().Create<errera::Actor>("player");
     _scene->AddActor(std::move(player));
-    */
 }
 
 void SpaceGame::SpawnRing() {

@@ -1,7 +1,52 @@
 #include "Game/SpaceGame.h"
 
+class A {
+public:
+    A() = default;
+    A(int size) : size{ size } 
+    {
+        buffer = new int[size];
+        for (int i = 0; i < size; i++) buffer[i] = i;
+    }
+    A(const A& other) :
+        size{ other.size }
+    {
+        buffer = new int[other.size];
+        for (int i = 0; i < size; i++) buffer[i] = i;
+    }
+    A& operator = (const A& other) {
+        size = other.size * 2;
+        buffer = other.buffer;
+        return *this;
+    }
+    ~A() = default;
+
+public:
+    int size{ 0 };
+    int* buffer{ nullptr };
+};
+
 int main(int argc, char* argv[]) {
     //errera::Logger::SetEnabledLevels(errera::LogLevel::Error | errera::LogLevel::Debug);
+
+    //A a1{ 4 };
+    //std::cout << a1.size << std::endl;
+    //std::cout << a1.buffer[2] << std::endl;
+
+    //A a2{a1}; // copy constructor
+
+    //a1.buffer[2] = 45;
+
+    //std::cout << a2.size << std::endl;
+    //std::cout << a2.buffer[2] << std::endl;
+
+
+    //A a3;
+    //a3 = a1; // assignment operator
+
+    //std::cout << a3.size << std::endl;
+
+    //return 0;
 
     errera::file::SetCurrentDirectory("Assets");
     

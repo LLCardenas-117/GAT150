@@ -3,6 +3,8 @@
 
 #include "Core/Serializable.h"
 
+#define CLASS_PROTOTYPE(classname) virtual std::unique_ptr<Object> Clone() { return std::make_unique<classname>(*this); }
+
 namespace errera {
 	class Object : public Serializable {
 	public:
@@ -12,6 +14,8 @@ namespace errera {
 	public:
 		Object() = default;
 		virtual ~Object() = default;
+
+		virtual std::unique_ptr<Object> Clone() = 0;
 
 		void Read(const json::value_t& value) override;
 	};

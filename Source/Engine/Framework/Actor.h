@@ -16,6 +16,7 @@ namespace errera {
 
 		bool destroyed{ false };
 		float lifespan{ 0 };
+		bool persistent{ false };
 
 		Transform transform;
 		class Scene* scene{ nullptr };
@@ -25,6 +26,10 @@ namespace errera {
 		Actor(const Transform& transform) :
 			transform{transform}
 		{}
+
+		Actor(const Actor& other);
+
+		CLASS_PROTOTYPE(Actor)
 
 		void Read(const json::value_t& value) override;
 

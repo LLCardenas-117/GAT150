@@ -10,6 +10,7 @@ public:
 
 public:
 	ringBlast() = default;
+	CLASS_PROTOTYPE(ringBlast)
 
 	void Update(float dt) override;
 

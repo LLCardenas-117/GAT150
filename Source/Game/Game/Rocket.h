@@ -12,6 +12,7 @@ public:
 		Actor{ transform }
 	{
 	}*/
+	CLASS_PROTOTYPE(Rocket)
 
 	void Update(float dt) override;
 

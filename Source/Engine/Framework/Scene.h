@@ -23,7 +23,7 @@ namespace errera {
 
 		void AddActor(std::unique_ptr<Actor>);
 
-		void RemoveAllActors();
+		void RemoveAllActors(bool force = false);
 
 		template<typename T = Actor>
 		T* GetActorByName(const std::string& name);

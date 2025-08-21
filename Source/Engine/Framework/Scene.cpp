@@ -69,11 +69,30 @@ namespace errera {
 	/// <summary>
 	/// Removes all actors from the scene.
 	/// </summary>
-	void Scene::RemoveAllActors() {
-		_actors.clear();
+	void Scene::RemoveAllActors(bool force) {
+		for (auto iter = _actors.begin(); iter != _actors.end();) {
+			if (!(*iter)->persistent || force) {
+				iter = _actors.erase(iter);
+			}
+			else {
+				iter++;
+			}
+		}
 	}
 
 	void Scene::Read(const json::value_t& value) {
+		// Read prototype actor
+		if (JSON_HAS(value, prototypes)) {
+			for (auto& prototypeValue : JSON_GET(value, prototypes).GetArray()) {
+				auto actor = Factory::Instance().Create<Actor>("Actor");
+				actor->Read(prototypeValue);
+
+				std::string name = actor->name;
+
+				Factory::Instance().RegisterPrototype<Actor>(name, std::move(actor));
+			}
+		}
+
 		// Read actor
 		if (JSON_HAS(value, actors)) {
 			for (auto& actorValue : JSON_GET(value, actors).GetArray()) {
