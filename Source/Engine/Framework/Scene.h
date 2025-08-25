@@ -12,16 +12,18 @@ namespace errera {
 	class Actor;
 	class Game;
 
-	class Scene : public Serializable {
+	class Scene : public ISerializable {
 	public:
 		Scene(Game* game) : _game{ game } {};
+
+		bool Load(const std::string& sceneName);
 
 		void Read(const json::value_t& value) override;
 
 		void Update(float dt);
 		void Draw(class Renderer& renderer);
 
-		void AddActor(std::unique_ptr<Actor>);
+		void AddActor(std::unique_ptr<Actor>, bool start = true);
 
 		void RemoveAllActors(bool force = false);
 

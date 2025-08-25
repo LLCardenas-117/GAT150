@@ -19,6 +19,18 @@ namespace errera {
 		}
 	}
 
+	void Actor::Start() {
+		for (auto& component : _components) {
+			component->Start();
+		}
+	}
+
+	void Actor::Destroyed() {
+		for (auto& component : _components) {
+			component->Destroyed();
+		}
+	}
+
 	void Actor::Update(float dt) {
 		if (destroyed) return;
 
@@ -46,6 +58,14 @@ namespace errera {
 					rendererComponent->Draw(renderer);
 				}
 			}
+		}
+	}
+
+	void Actor::OnCollision(Actor* other) {
+		auto collidables = GetComponents<ICollidable>();
+
+		for (auto& collidable : collidables) {
+			collidable->OnCollision(other);
 		}
 	}
 
@@ -77,6 +97,4 @@ namespace errera {
 			}
 		}
 	}
-
 }
-

@@ -7,10 +7,7 @@
 
 bool SpaceGame::Initialize() {
     _scene = std::make_unique<errera::Scene>(this);
-
-    errera::json::document_t document;
-    errera::json::Load("scene.json", document);
-    _scene->Read(document);
+    _scene->Load("scene.json");
 
     _titleText = std::make_unique<errera::Text>(errera::Resources().GetWithID<errera::Font>("title_font", "arcadeclassic.ttf", 128.0f));
     _scoreText = std::make_unique<errera::Text>(errera::Resources().GetWithID<errera::Font>("ui_font", "arcadeclassic.ttf", 48.0f));

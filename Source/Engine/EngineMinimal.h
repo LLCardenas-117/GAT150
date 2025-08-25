@@ -22,6 +22,10 @@
 #include "Math/Vector2.h"
 #include "Math/Vector3.h"
 
+// Physics
+#include "Physics/Collidable.h"
+#include "Physics/Physics.h"
+
 // Resources
 #include "Resources/Resource.h"
 #include "Resources/ResourceManager.h"
@@ -45,3 +49,8 @@
 #include <memory>
 #include <random>
 #include <vector>
+
+// Event Manager
+#include "Event/Event.h"
+#include "Event/EventManager.h"
+#include "Event/Observer.h"

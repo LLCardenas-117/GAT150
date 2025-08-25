@@ -17,6 +17,10 @@ namespace errera {
 		}
 
 		// Remove destroyed actors
+		/*std::erase_if(_actors, [](Actor actor) {
+			return (actor->destroyed);
+		});*/
+
 		for (auto iter = _actors.begin(); iter != _actors.end();) {
 			if ((*iter)->destroyed) {
 				iter = _actors.erase(iter);
@@ -61,8 +65,9 @@ namespace errera {
 	/// Adds an actor to the scene, transferring ownership of the actor to the scene.
 	/// </summary>
 	/// <param name="actor">A unique pointer to the actor to be added to the scene.</param>
-	void Scene::AddActor(std::unique_ptr<class Actor> actor) {
+	void Scene::AddActor(std::unique_ptr<class Actor> actor, bool start) {
 		actor->scene = this;
+		if (start) actor->Start();
 		_actors.push_back(std::move(actor));
 	}
 
@@ -78,6 +83,30 @@ namespace errera {
 				iter++;
 			}
 		}
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="sceneName"></param>
+	/// <returns></returns>
+	bool Scene::Load(const std::string& sceneName) {
+		// Load json
+		json::document_t document;
+		if (!json::Load(sceneName, document)) {
+			Logger::Error("Could not load scene {}", sceneName);
+			return false;
+		}
+
+		// Create scene
+		Read(document);
+
+		// Start actors
+		for (auto& actor : _actors) {
+			actor->Start();
+		}
+
+		return true;
 	}
 
 	void Scene::Read(const json::value_t& value) {
@@ -99,7 +128,7 @@ namespace errera {
 				auto actor = Factory::Instance().Create<Actor>("Actor");
 				actor->Read(actorValue);
 
-				AddActor(std::move(actor));
+				AddActor(std::move(actor), false);
 			}
 		}
 	}

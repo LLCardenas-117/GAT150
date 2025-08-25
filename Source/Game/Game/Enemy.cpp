@@ -7,6 +7,11 @@
 
 FACTORY_REGISTER(Enemy)
 
+void Enemy::Start() {
+    _rigidBody = owner->GetComponent<errera::RigidBody>();
+    fireTimer = fireTime;
+}
+
 void Enemy::Update(float dt){
     // Particals to the engine
     errera::Particle particle;
@@ -40,9 +45,8 @@ void Enemy::Update(float dt){
 
     errera::vec2 force = errera::vec2{ 1, 0 }.Rotate(errera::math::degToRad(owner->transform.rotation)) * speed;
 
-    auto* rb = owner->GetComponent<errera::RigidBody>();
-    if (rb) {
-        rb->velocity += force * dt;
+    if (_rigidBody) {
+        _rigidBody->velocity += force * dt;
     }
 
     owner->transform.position.x = errera::math::wrap(owner->transform.position.x, 0.0f, (float)errera::GetEngine().GetRenderer().GetWidth());
