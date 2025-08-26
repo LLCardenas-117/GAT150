@@ -11,6 +11,7 @@ bool SpaceGame::Initialize() {
 
     _scene = std::make_unique<errera::Scene>(this);
     _scene->Load("scene.json");
+    _scene->Load("prototype.json");
 
     _titleText = std::make_unique<errera::Text>(errera::Resources().GetWithID<errera::Font>("title_font", "arcadeclassic.ttf", 128.0f));
     _scoreText = std::make_unique<errera::Text>(errera::Resources().GetWithID<errera::Font>("ui_font", "arcadeclassic.ttf", 48.0f));
@@ -149,39 +150,6 @@ void SpaceGame::Shutdown() {
 }
 
 void SpaceGame::SpawnEnemy() {
-    /*
-    Player* player = _scene->GetActorByName<Player>("player");
-    if (player) {
-        // SAVING CODE FOR ENEMY CODE
-        errera::vec2 position = player->transform.position + errera::random::onUnitCircle() * errera::random::getReal(200.0f, 500.0f);
-        errera::Transform transform{ position, errera::random::getReal(0.0f, 360.0f), 10 }; //1.25f
-        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform);
-        enemy->fireTime = 3;
-        enemy->fireTimer = 5;
-        enemy->speed = (float)(errera::random::getReal() * 200) + 300.0f;
-        enemy->tag = "enemy";
-
-        // Components
-        //auto spriteRenderer = std::make_unique<errera::SpriteRenderer>();
-        //spriteRenderer->textureName = "textures/Seraph.png";
-        //enemy->AddComponent(std::move(spriteRenderer));
-
-        auto meshRenderer = std::make_unique<errera::MeshRenderer>();
-        meshRenderer->meshName = "meshes/enemy.msh";
-        enemy->AddComponent(std::move(meshRenderer));
-
-        auto rb = std::make_unique<errera::RigidBody>();
-        rb->damping = 1.5f;
-        enemy->AddComponent(std::move(rb));
-
-        auto collider = std::make_unique<errera::CircleCollider2D>();
-        collider->radius = 60;
-        enemy->AddComponent(std::move(collider));
-
-        _scene->AddActor(std::move(enemy));
-    }
-    */
-
     errera::Actor* player = _scene->GetActorByName<errera::Actor>("player");
     if (player) {
         errera::vec2 position = player->transform.position + errera::random::onUnitCircle() * errera::random::getReal(200.0f, 500.0f);
@@ -198,33 +166,12 @@ void SpaceGame::SpawnPlayer() {
 }
 
 void SpaceGame::SpawnRing() {
-    /*
-    Player* player = _scene->GetActorByName<Player>("player");
+    errera::Actor* player = _scene->GetActorByName<errera::Actor>("player");
     if (player) {
-        auto sound = errera::Resources().Get<errera::AudioClip>("audio/seismic_charges.wav", errera::GetEngine().GetAudio()).get();
-        if (sound) {
-            errera::GetEngine().GetAudio().PlaySound(*sound);
-        }
+        errera::Transform transform{ player->transform.position, 0, 0.05f };
 
-        errera::vec2 position = player->transform.position + errera::random::onUnitCircle();
-        errera::Transform transform{ position, 0, .05f };
-        std::unique_ptr<ringBlast> ring = std::make_unique<ringBlast>(transform);
-        ring->speed = 0.5f;
-        ring->tag = "player";
-        ring->lifespan = 3.0f;
-
-        // Components
-        auto spriteRenderer = std::make_unique<errera::SpriteRenderer>();
-        spriteRenderer->textureName = "textures/ring.png";
-
-        ring->AddComponent(std::move(spriteRenderer));
-
-        auto collider = std::make_unique<errera::CircleCollider2D>();
-        collider->radius = 9000;
-        ring->AddComponent(std::move(collider));
-
+        auto ring = errera::Instantiate("ring", transform);
         _scene->AddActor(std::move(ring));
         _ring -= 1;
     }
-    */
 }

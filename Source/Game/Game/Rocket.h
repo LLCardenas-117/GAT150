@@ -6,12 +6,10 @@ class Rocket : public errera::Component, public errera::ICollidable {
 public:
 	float speed = 200;
 
+	errera::RigidBody* _rigidBody{ nullptr };
+
 public:
 	Rocket() = default;
-	/*Rocket(const errera::Transform& transform) :
-		Actor{ transform }
-	{
-	}*/
 	CLASS_PROTOTYPE(Rocket)
 
 	void Update(float dt) override;

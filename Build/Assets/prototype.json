@@ -15,6 +15,7 @@
         {
           "type": "player",
           "speed": 350,
+          "fireTime": 0.25,
           "rotationRate": 280.0
         },
         {
@@ -49,7 +50,9 @@
       "components": [
         {
           "type": "enemy",
-          "speed": 300
+          "speed": 300,
+          "fireTime": 3,
+          "fireTimer": 5
         },
         {
           "type": "SpriteRenderer",
@@ -70,9 +73,91 @@
       ]
     },
     {
-      "name": "rocket",
+      "name": "player-rocket",
       "tag": "player",
-      "scale": 0.75
+      "lifespan": 1.5,
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 0.75
+      },
+      "components": [
+        {
+          "type": "rocket",
+          "speed": 1000
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture_name": "textures/unsc-missle.png"
+        },
+        {
+          "type": "RigidBody"
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 10
+        }
+      ]
+    },
+    {
+      "name": "enemy-rocket",
+      "tag": "enemy",
+      "lifespan": 1.5,
+      "transform": {
+        "position": [
+          400,
+          400
+        ],
+        "rotation": 0,
+        "scale": 0.75
+      },
+      "components": [
+        {
+          "type": "rocket",
+          "speed": 1000
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture_name": "textures/plasma.png"
+        },
+        {
+          "type": "RigidBody"
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 10
+        }
+      ]
+    },
+    {
+      "name": "ring",
+      "tag": "player",
+      "lifespan": 3,
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 0.05
+      },
+      "components": [
+        {
+          "type": "ringBlast",
+          "speed": 0.5
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture_name": "textures/ring.png"
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 9000
+        }
+      ]
     }
   ]
 }

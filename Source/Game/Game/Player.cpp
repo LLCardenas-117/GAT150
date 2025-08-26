@@ -42,43 +42,17 @@ void Player::Update(float dt) { //dt = Delta Time
     owner->transform.position.x = errera::math::wrap(owner->transform.position.x, 0.0f, (float)errera::GetEngine().GetRenderer().GetWidth());
     owner->transform.position.y = errera::math::wrap(owner->transform.position.y, 0.0f, (float)errera::GetEngine().GetRenderer().GetHeight());
 
-    /*
+    
     // check fire key pressed
     // spawn rocket with staying to the players position
     fireTimer -= dt;
     if (errera::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_E) && fireTimer <= 0) {
         fireTimer = fireTime;
-        errera::Transform missleTransform{ this->transform.position, this->transform.rotation, 0.75f };
-        auto rocket = std::make_unique<Rocket>(missleTransform);
-        rocket->speed = 1000.0f;
-        rocket->lifespan = 1.5f;
-        rocket->name = "rocket";
-        rocket->tag = "player";
+        errera::Transform transform{ owner->transform.position, owner->transform.rotation, 0.75 };
 
-        // Components
-        auto spriteRenderer = std::make_unique<errera::SpriteRenderer>();
-        spriteRenderer->textureName = "textures/unsc-missle.png";
-
-        rocket->AddComponent(std::move(spriteRenderer));
-
-        auto rb = std::make_unique<errera::RigidBody>();
-        rocket->AddComponent(std::move(rb));
-
-        auto collider = std::make_unique<errera::CircleCollider2D>();
-        collider->radius = 10;
-        rocket->AddComponent(std::move(collider));
-
-        // Rocket sound
-        auto sound = errera::Resources().Get<errera::AudioClip>("audio/unsc-fire.wav", errera::GetEngine().GetAudio()).get();
-        if (sound) {
-            errera::GetEngine().GetAudio().PlaySound(*sound);
-        }
-
-        scene->AddActor(std::move(rocket));
+        auto rocket = errera::Instantiate("player-rocket", transform);
+        owner->scene->AddActor(std::move(rocket));
     }
-
-    Actor::Update(dt);
-    */
 }
 
 void Player::OnCollision(errera::Actor* other) {

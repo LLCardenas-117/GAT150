@@ -54,41 +54,17 @@ void Enemy::Update(float dt){
     owner->transform.position.x = errera::math::wrap(owner->transform.position.x, 0.0f, (float)errera::GetEngine().GetRenderer().GetWidth());
     owner->transform.position.y = errera::math::wrap(owner->transform.position.y, 0.0f, (float)errera::GetEngine().GetRenderer().GetHeight());
 
-    /*
-    fireTimer -= dtowner->
+    
+    fireTimer -= dt;
     if (fireTimer <= 0 && playerSeen) {
         fireTimer = fireTime;
-        errera::Transform missleTransform{ this->transform.position, this->transform.rotation, 0.75f };
-        auto rocket = std::make_unique<Rocket>(missleTransform); 
-        rocket->speed = 1000.0f;
-        rocket->lifespan = 1.5f;
-        rocket->name = "rocket";
-        rocket->tag = "enemy";
+        errera::Transform transform{ owner->transform.position, owner->transform.rotation, 0.75 };
 
-        // Components
-        auto spriteRenderer = std::make_unique<errera::SpriteRenderer>();
-        spriteRenderer->textureName = "textures/plasma.png";
+        auto rocket = errera::Instantiate("enemy-rocket", transform);
+        owner->scene->AddActor(std::move(rocket));
 
-        rocket->AddComponent(std::move(spriteRenderer));
-
-        auto rb = std::make_unique<errera::RigidBody>();
-        rocket->AddComponent(std::move(rb));
-
-        auto collider = std::make_unique<errera::CircleCollider2D>();
-        collider->radius = 10;
-        rocket->AddComponent(std::move(collider));
-
-        // Rocket sound
-        auto sound = errera::Resources().Get<errera::AudioClip>("audio/cov-fire.wav", errera::GetEngine().GetAudio()).get();
-        if (sound) {
-            errera::GetEngine().GetAudio().PlaySound(*sound);
-        }
-
-        scene->AddActor(std::move(rocket));
+        
     }
-
-    Actor::Update(dt);
-    */
 }
 
 void Enemy::OnCollision(errera::Actor* other) {
@@ -96,7 +72,6 @@ void Enemy::OnCollision(errera::Actor* other) {
         owner->destroyed = true;
         EVENT_NOTIFY_DATA(add_points, 100);
 
-        //owner->scene->GetGame()->AddPoints(100);
         for (int i = 0; i < 100; i++) {
             errera::Particle particle;
             particle.position = owner->transform.position;
@@ -124,4 +99,5 @@ void Enemy::Read(const errera::json::value_t& value) {
 
     JSON_READ(value, speed);
     JSON_READ(value, fireTime);
+    JSON_READ(value, fireTimer);
 }
