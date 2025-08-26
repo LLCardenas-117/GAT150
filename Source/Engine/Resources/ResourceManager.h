@@ -18,7 +18,7 @@ namespace errera {
 		requires std::derived_from<T, Resource>
 		res_t<T> GetWithID(const std::string& id, const std::string& filename, Args&& ... args);
 
-		void Clear() { _resources.clear(); }
+		void RemoveAll() { _resources.clear(); }
 
 	private:
 		friend class Singleton<ResourceManager>;

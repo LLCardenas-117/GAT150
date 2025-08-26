@@ -30,7 +30,9 @@ namespace errera {
 
 	void Engine::Shutdown()	{
 		// Release resources from rescource manager
-		Resources().Clear();
+		Resources().RemoveAll();
+		Factory::Instance().RemoveAll();
+		EventManager::Instance().RemoveAll();
 
 		// Shutdown engine systems
 		_particleSystem->ShutDown();

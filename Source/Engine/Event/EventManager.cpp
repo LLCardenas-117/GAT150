@@ -13,7 +13,7 @@ namespace errera {
 		// Itrerate through all event types
 		for (auto& eventType : _observers) {
 			// Get list of observers for event type
-			auto observers = eventType.second;
+			auto& observers = eventType.second;
 
 			// Remove matching observers from this event type
 			std::erase_if(observers, [observerPtr](auto observer) {
@@ -23,6 +23,20 @@ namespace errera {
 	}
 
 	void EventManager::Notify(const Event& event) {
+		// Find observers of event
+		auto it = _observers.find(tolower(event.id));
+
+		if (it != _observers.end()) {
+			// Get observers of event
+			auto& observers = it->second;
+
+			for (auto& observer : observers) {
+				observer->OnNotify(event);
+			}
+		}
+		else {
+			Logger::Warning("Could not find event: {}", event.id);
+		}
 	}
 }
 

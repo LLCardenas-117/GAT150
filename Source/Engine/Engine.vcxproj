@@ -209,6 +209,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Event\EventManager.cpp" />
+    <ClCompile Include="Event\Observer.cpp" />
     <ClCompile Include="Framework\Actor.cpp" />
     <ClCompile Include="Framework\Object.cpp" />
     <ClCompile Include="Framework\Scene.cpp" />

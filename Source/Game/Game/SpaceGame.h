@@ -3,7 +3,7 @@
 #include "Renderer/Font.h"
 #include "Renderer/Text.h"
 
-class SpaceGame : public errera::Game {
+class SpaceGame : public errera::Game, public errera::IObserver {
 public:
 	enum class GameState {
 		Initialize,
@@ -25,6 +25,8 @@ public:
 	void Draw(class errera::Renderer& renderer) override;
 
 	void OnPlayerDeath();
+
+	void OnNotify(const errera::Event& event) override;
 
 	void Shutdown() override;
 	

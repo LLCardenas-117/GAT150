@@ -227,6 +227,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Build\Assets\Meshes\enemy.msh" />
+    <None Include="..\..\Build\Assets\prototype.json" />
     <None Include="..\..\Build\Assets\scene.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

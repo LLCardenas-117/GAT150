@@ -6,6 +6,9 @@
 #include "ringBlast.h"
 
 bool SpaceGame::Initialize() {
+    OBSERVER_ADD(player_dead);
+    OBSERVER_ADD(add_points);
+
     _scene = std::make_unique<errera::Scene>(this);
     _scene->Load("scene.json");
 
@@ -124,6 +127,17 @@ void SpaceGame::Draw(errera::Renderer& renderer) {
     _ringChargeText->Draw(renderer, 10, (float)renderer.GetHeight() - 100);
 
 	errera::GetEngine().GetParticleSystem().Draw(renderer);
+}
+
+void SpaceGame::OnNotify(const errera::Event& event) {
+    std::cout << event.id << std::endl;
+
+    if (errera::equalsIqnoreCase(event.id, "player_dead")) {
+        OnPlayerDeath();
+    }
+    else if (errera::equalsIqnoreCase(event.id, "add_points")) {
+        AddPoints(std::get<int>(event.data));
+    }
 }
 
 void SpaceGame::OnPlayerDeath() {

@@ -8,6 +8,8 @@
 FACTORY_REGISTER(Enemy)
 
 void Enemy::Start() {
+    OBSERVER_ADD(player_dead);
+
     _rigidBody = owner->GetComponent<errera::RigidBody>();
     fireTimer = fireTime;
 }
@@ -92,7 +94,9 @@ void Enemy::Update(float dt){
 void Enemy::OnCollision(errera::Actor* other) {
     if (owner->tag != other->tag) {
         owner->destroyed = true;
-        owner->scene->GetGame()->AddPoints(100);
+        EVENT_NOTIFY_DATA(add_points, 100);
+
+        //owner->scene->GetGame()->AddPoints(100);
         for (int i = 0; i < 100; i++) {
             errera::Particle particle;
             particle.position = owner->transform.position;
@@ -106,6 +110,12 @@ void Enemy::OnCollision(errera::Actor* other) {
         if (sound) {
             errera::GetEngine().GetAudio().PlaySound(*sound);
         }
+    }
+}
+
+void Enemy::OnNotify(const errera::Event& event) {
+    if (errera::equalsIqnoreCase(event.id, "player_dead")) {
+        owner->destroyed = true;
     }
 }
 
