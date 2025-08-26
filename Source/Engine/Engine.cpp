@@ -14,6 +14,9 @@ namespace errera {
 
 		_particleSystem = std::make_unique<ParticleSystem>();
 		_particleSystem->Initialize(5000);
+
+		_physics = std::make_unique<Physics>();
+		_physics->Initialize();
 		return true;
 	}
 
@@ -22,6 +25,7 @@ namespace errera {
 		_input->Update();
 		_audio->Update();
 		_particleSystem->Update(_time.GetDeltaTime());
+		_physics->Update(_time.GetDeltaTime());
 	}
 
 	void Engine::Draw() {
@@ -35,6 +39,7 @@ namespace errera {
 		EventManager::Instance().RemoveAll();
 
 		// Shutdown engine systems
+		_physics->Shutdown();
 		_particleSystem->ShutDown();
 		_audio->Shutdown();
 		_input->Shutdown();

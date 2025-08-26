@@ -3,6 +3,7 @@
 #include "Core/Singleton.h"
 #include "Core/Time.h"
 #include "Input/InputSystem.h"
+#include "Physics/Physics.h"
 #include "Renderer/ParticleSystem.h"
 #include "Renderer/Renderer.h"
 #include "Resources/ResourceManager.h"
@@ -21,6 +22,7 @@ namespace errera {
 		InputSystem& GetInput() { return *_input; }
 		AudioSystem& GetAudio() { return *_audio; }
 		ParticleSystem& GetParticleSystem() { return *_particleSystem; }
+		Physics& GetPhysics() { return *_physics; }
 
 		Time& GetTime() { return _time; }
 
@@ -35,6 +37,7 @@ namespace errera {
 		std::unique_ptr<InputSystem> _input;
 		std::unique_ptr<Renderer> _renderer;
 		std::unique_ptr<ParticleSystem> _particleSystem;
+		std::unique_ptr<Physics> _physics;
 	};
 
 	inline Engine& GetEngine() { return Engine::Instance(); };
