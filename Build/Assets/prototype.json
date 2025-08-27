@@ -16,7 +16,7 @@
           "type": "player",
           "speed": 350,
           "fireTime": 0.25,
-          "rotationRate": 280.0
+          "rotationRate": 60.0
         },
         {
           "type": "SpriteRenderer",
@@ -24,11 +24,8 @@
         },
         {
           "type": "RigidBody",
-          "damping": 0.75,
-          "velocity": [
-            0,
-            0
-          ]
+          "gravityScale": 0,
+          "angularDamping": 2
         },
         {
           "type": "CircleCollider2D",
@@ -50,9 +47,10 @@
       "components": [
         {
           "type": "enemy",
-          "speed": 300,
+          "speed": 0,
           "fireTime": 3,
-          "fireTimer": 5
+          "fireTimer": 5,
+          "rotationRate": 60.0
         },
         {
           "type": "SpriteRenderer",
@@ -64,7 +62,8 @@
         },
         {
           "type": "RigidBody",
-          "damping": 1.5
+          "gravityScale": 0,
+          "angularDamping": 2
         },
         {
           "type": "CircleCollider2D",
@@ -87,14 +86,16 @@
       "components": [
         {
           "type": "rocket",
-          "speed": 1000
+          "speed": 350
         },
         {
           "type": "SpriteRenderer",
           "texture_name": "textures/unsc-missle.png"
         },
         {
-          "type": "RigidBody"
+          "type": "RigidBody",
+          "gravityScale": 0,
+          "isSensor": true
         },
         {
           "type": "CircleCollider2D",
@@ -124,7 +125,9 @@
           "texture_name": "textures/plasma.png"
         },
         {
-          "type": "RigidBody"
+          "type": "RigidBody",
+          "gravityScale": 0,
+          "isSensor": true
         },
         {
           "type": "CircleCollider2D",

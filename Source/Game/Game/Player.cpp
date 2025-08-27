@@ -6,6 +6,10 @@
 
 FACTORY_REGISTER(Player)
 
+void Player::Start() {
+    _rigidBody = owner->GetComponent<errera::RigidBody>();
+}
+
 void Player::Update(float dt) { //dt = Delta Time
     //if (errera::GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_W)) errera::GetEngine().GetAudio().PlaySound("unsc-engine");
 
@@ -22,8 +26,7 @@ void Player::Update(float dt) { //dt = Delta Time
     float rotate = 0;
     if (errera::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_A)) rotate = -1;
     if (errera::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_D)) rotate = +1;
-    
-    owner->transform.rotation += (rotate * rotationRate) * dt;
+    _rigidBody->ApplyTorque(rotate * rotationRate);
 
     // Thrust
     float thrust = 0;
@@ -33,11 +36,7 @@ void Player::Update(float dt) { //dt = Delta Time
 
     errera::vec2 direction{ 1, 0 };
     errera::vec2 force = direction.Rotate(errera::math::degToRad(owner->transform.rotation)) * thrust * speed;
-
-    auto* rb = owner->GetComponent<errera::RigidBody>();
-    if (rb) {
-        rb->velocity += force * dt;
-    }
+    _rigidBody->ApplyForce(force);
 
     owner->transform.position.x = errera::math::wrap(owner->transform.position.x, 0.0f, (float)errera::GetEngine().GetRenderer().GetWidth());
     owner->transform.position.y = errera::math::wrap(owner->transform.position.y, 0.0f, (float)errera::GetEngine().GetRenderer().GetHeight());

@@ -40,16 +40,15 @@ void Enemy::Update(float dt){
         if (playerSeen) {
             float angle = errera::vec2::SignedAngleBetween(forward, direction);
             angle = errera::math::sign(angle);
-            owner->transform.rotation += errera::math::radToDeg(angle * 5 * dt);
+            _rigidBody->ApplyTorque(angle * 5);
+
+            //owner->transform.rotation += errera::math::radToDeg(angle * 5 * dt);
         }
         
     }
 
     errera::vec2 force = errera::vec2{ 1, 0 }.Rotate(errera::math::degToRad(owner->transform.rotation)) * speed;
-
-    if (_rigidBody) {
-        _rigidBody->velocity += force * dt;
-    }
+    _rigidBody->ApplyForce(force);
 
     owner->transform.position.x = errera::math::wrap(owner->transform.position.x, 0.0f, (float)errera::GetEngine().GetRenderer().GetWidth());
     owner->transform.position.y = errera::math::wrap(owner->transform.position.y, 0.0f, (float)errera::GetEngine().GetRenderer().GetHeight());

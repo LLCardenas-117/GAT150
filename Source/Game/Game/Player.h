@@ -14,6 +14,8 @@ public:
 	Player() = default;
 	CLASS_PROTOTYPE(Player)
 
+	void Start() override;
+
 	void Update(float dt) override;
 
 	void OnCollision(class errera::Actor* other) override;

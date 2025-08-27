@@ -42,6 +42,7 @@ namespace errera {
             return false;
         }
 
+        SDL_SetRenderVSync(_renderer, 1);
         SDL_SetRenderLogicalPresentation(_renderer, width, height, SDL_LOGICAL_PRESENTATION_LETTERBOX);
 
         return true;
