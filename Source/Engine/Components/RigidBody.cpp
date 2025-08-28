@@ -24,7 +24,7 @@ namespace errera {
 			}
 		}
 
-		_physicsBody = std::make_unique<PhysicsBody>(owner->transform, size, bodyDef, GetEngine().GetPhysics());
+		_physicsBody = std::make_unique<PhysicsBody>(owner->transform, size * scale, bodyDef, GetEngine().GetPhysics());
 	}
 
 	void RigidBody::Update(float dt) {
@@ -51,7 +51,7 @@ namespace errera {
 		Object::Read(value);
 
 		JSON_READ(value, size);
-		//JSON_READ(value, scale);
+		JSON_READ(value, scale);
 
 		JSON_READ_NAME(value, "gravityScale", bodyDef.gravityScale);
 		JSON_READ_NAME(value, "linearDamping", bodyDef.linearDamping);

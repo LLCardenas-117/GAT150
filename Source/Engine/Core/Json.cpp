@@ -11,8 +11,6 @@ namespace errera::json {
             return false;
         }
 
-        Logger::Info("JSON: {}", buffer);
-
         // Convert the string into a json stream
         std::stringstream stream(buffer);
         rapidjson::IStreamWrapper istream(stream);
