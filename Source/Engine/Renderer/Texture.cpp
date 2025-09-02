@@ -23,7 +23,7 @@ namespace errera {
 			return false;
 		}
 
-		return true;
+	 	return true;
 	}
 
 	vec2 Texture::GetSize() {

@@ -12,6 +12,7 @@
 #include "Components/MeshRenderer.h"
 #include "Components/RigidBody.h"
 #include "Components/SpriteRenderer.h"
+#include "Components/TilemapRenderer.h"
 
 // Input
 #include "Input/InputSystem.h"
@@ -23,3 +24,4 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/Text.h"
 #include "Renderer/Texture.h"
+#include "Renderer/Tilemap.h"

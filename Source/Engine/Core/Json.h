@@ -5,6 +5,8 @@
 #include "Math/Vector2.h"
 #include "Math/Vector3.h"
 
+#include <vector>
+
 #define JSON_READ(value, data) errera::json::Read(value, #data, data)
 #define JSON_READ_NAME(value, name, data) errera::json::Read(value, name, data)
 
@@ -23,4 +25,5 @@ namespace errera::json {
 	bool Read(const value_t& value, const std::string& name, std::string& data, bool required = false);
 	bool Read(const value_t& value, const std::string& name, vec2& data, bool required = false);
 	bool Read(const value_t& value, const std::string& name, vec3& data, bool required = false);
+	bool Read(const value_t& value, const std::string& name, std::vector<int>& data, bool required = false);
 }
