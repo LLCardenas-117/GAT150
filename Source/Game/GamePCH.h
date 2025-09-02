@@ -24,4 +24,5 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/Text.h"
 #include "Renderer/Texture.h"
+#include "Renderer/TextureAnimation.h"
 #include "Renderer/Tilemap.h"

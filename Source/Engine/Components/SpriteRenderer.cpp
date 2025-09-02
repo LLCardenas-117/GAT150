@@ -6,7 +6,13 @@ namespace errera {
 	FACTORY_REGISTER(SpriteRenderer)
 
 	void SpriteRenderer::Start() {
-		texture = Resources().Get<Texture>(textureName, GetEngine().GetRenderer());
+		//texture = Resources().Get<Texture>(textureName, GetEngine().GetRenderer());
+
+		// get texture resource if texture doesn't exist and there's a texture name
+		if (!texture) {
+			texture = Resources().Get<Texture>(textureName, GetEngine().GetRenderer());
+		}
+
 	}
 
 	void SpriteRenderer::Update(float dt) {
@@ -14,14 +20,32 @@ namespace errera {
 	}
 
 	void SpriteRenderer::Draw(Renderer& renderer) {
-		if (texture) {
+		/*if (texture) {
 			renderer.DrawTexture(*texture,
 				owner->transform.position.x,
 				owner->transform.position.y,
 				owner->transform.rotation,
 				owner->transform.scale);
+		}*/
 
+		if (texture) {
+			if (textureRect.w > 0 && textureRect.h > 0) {
+				renderer.DrawTexture(*texture,
+					textureRect,
+					owner->transform.position.x,
+					owner->transform.position.y,
+					owner->transform.rotation,
+					owner->transform.scale);
+			}
+			else {
+				renderer.DrawTexture(*texture,
+					owner->transform.position.x,
+					owner->transform.position.y,
+					owner->transform.rotation,
+					owner->transform.scale);
+			}
 		}
+
 	}
 
 	void SpriteRenderer::Read(const json::value_t& value) {
