@@ -61,6 +61,32 @@
           "scale": [ 1, 1 ]
         }
       ]
+    },
+    {
+      "name": "bat",
+      "tag": "enemy",
+      "transform": {
+        "position": [
+          100,
+          500
+        ],
+        "rotation": 0,
+        "scale": 3
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer"
+        },
+        {
+          "type": "Animator",
+          "animations": [
+            {
+              "name": "idle",
+              "texture_animation": "animations/bat_idle.json"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

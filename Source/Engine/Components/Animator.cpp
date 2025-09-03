@@ -2,6 +2,8 @@
 #include "Animator.h"
 #include "Engine.h"
 
+#include "SpriteRenderer.h"
+
 namespace errera {
 	FACTORY_REGISTER(Animator)
 
@@ -57,9 +59,50 @@ namespace errera {
 	}
 
 	void Animator::Play(const std::string& name, bool resetFrame) {
+		// Don't start animation if it's already the current animation
+		if (equalsIqnoreCase(name, _currentAnimationName)) return;
+
+		// Check if animation exists
+		auto it = _animations.find(tolower(name));
+		if (it == _animations.end()) {
+			Logger::Error("Animation does not exist in animation {}", name);
+			return;
+		}
+
+		// Set the current animation 
+		_currentAnimationName = name;
+		_currentAnimation = it->second;
+
+		if (resetFrame) frame = 0;
+		_frameTimer = 1.0f / _currentAnimation.textureAnimation->GetFPS();
+
+		// Set sprite renderer texture
+		if (_spriteRenderer) {
+			_spriteRenderer->texture = _currentAnimation.textureAnimation->GetTexture();
+			_spriteRenderer->textureRect = _currentAnimation.textureAnimation->GetFrameRect(frame);
+		}
 	}
 
 	void Animator::Read(const json::value_t& value) {
+		Object::Read(value);
+
+		JSON_READ(value, frame);
+
+		if (JSON_HAS(value, animaions) && JSON_GET(value, animations).IsArray()) {
+			for (auto& animatorValue : JSON_GET(value, animations).GetArray()) {
+				std::string name;
+				std::string textureAnimationName;
+
+				JSON_READ(animatorValue, name);
+
+				JSON_READ_NAME(animatorValue, "texture_animation", textureAnimationName);
+
+				TextureAnimInfo textureAnimInfo;
+				textureAnimInfo.textureAnimationName = textureAnimationName;
+
+				_animations[tolower(name)] = textureAnimInfo;
+			}
+		}
 	}
 
 }
