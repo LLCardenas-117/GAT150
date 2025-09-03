@@ -9,7 +9,7 @@ namespace errera {
 		//texture = Resources().Get<Texture>(textureName, GetEngine().GetRenderer());
 
 		// get texture resource if texture doesn't exist and there's a texture name
-		if (!texture) {
+		if (!texture && !textureName.empty()) {
 			texture = Resources().Get<Texture>(textureName, GetEngine().GetRenderer());
 		}
 
