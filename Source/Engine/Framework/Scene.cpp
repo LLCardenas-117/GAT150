@@ -31,24 +31,24 @@ namespace errera {
 		}
 
 		// Check for collisions
-		for (auto& actorA : _actors) {
-			for (auto& actorB : _actors) {
-				continue;
+		//for (auto& actorA : _actors) {
+		//	for (auto& actorB : _actors) {
+		//		continue;
 
-				if (actorA == actorB || (actorA->destroyed || actorB->destroyed)) continue;
+		//		if (actorA == actorB || (actorA->destroyed || actorB->destroyed)) continue;
 
-				auto colliderA = actorA->GetComponent<ColliderComponent>();
-				auto colliderB = actorB->GetComponent<ColliderComponent>();
+		//		auto colliderA = actorA->GetComponent<ColliderComponent>();
+		//		auto colliderB = actorB->GetComponent<ColliderComponent>();
 
-				// Make sure both actors have a collider
-				if (!colliderA || !colliderB) continue;
+		//		// Make sure both actors have a collider
+		//		if (!colliderA || !colliderB) continue;
 
-				if (colliderA->CheckCollision(*colliderB)) {
-					actorA->OnCollision(actorB.get());
-					actorB->OnCollision(actorA.get());
-				}
-			}
-		}
+		//		if (colliderA->CheckCollision(*colliderB)) {
+		//			actorA->OnCollision(actorB.get());
+		//			actorB->OnCollision(actorA.get());
+		//		}
+		//	}
+		//}
 	}
 
 	/// <summary>

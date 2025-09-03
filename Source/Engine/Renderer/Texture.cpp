@@ -10,6 +10,7 @@ namespace errera {
 		SDL_Surface* surface = IMG_Load(filename.c_str());
 
 		if (!surface) {
+			Logger::Info("Renderer/Texture.cpp Line 14");
 			Logger::Error("Could not load image: {}", filename);
 			return false;
 		}

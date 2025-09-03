@@ -23,6 +23,7 @@ namespace errera {
 
 		PhysicsBody::PhysicsBodyDef bodyDef;
 		bodyDef.isDynamic = false;
+		bodyDef.actor = owner;
 
 		// iterate through layers
 		for (auto layer : _tilemap->GetLayers()) {

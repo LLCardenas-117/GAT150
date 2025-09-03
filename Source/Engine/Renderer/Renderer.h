@@ -31,9 +31,9 @@ namespace errera {
 
 		void DrawTexture(Texture& texture, float x, float y);
 
-		void DrawTexture(Texture& texture, float x, float y, float angle, float scale = 1.0f);
+		void DrawTexture(Texture& texture, float x, float y, float angle, float scale = 1.0f, bool flipH = false);
 
-		void DrawTexture(class Texture& texture, const rect& sourceRect, float x, float y, float angle, float scale = 1);
+		void DrawTexture(class Texture& texture, const rect& sourceRect, float x, float y, float angle, float scale = 1, bool flipH = false);
 
 		int GetWidth() const { return _width; }
 		int GetHeight() const { return _height; }

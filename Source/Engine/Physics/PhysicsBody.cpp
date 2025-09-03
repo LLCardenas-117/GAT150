@@ -24,6 +24,9 @@ namespace errera {
 		shapeDef.density = def.density;
 		shapeDef.isSensor = def.isSensor;
 
+		if (def.isSensor) shapeDef.enableSensorEvents = true;
+		else shapeDef.enableContactEvents = true;
+
 		// Create shape
 		b2Vec2 hsize = to_b2(Physics::PixelToWorld(size * transform.scale * 0.5f));
 		switch (def.shape) {
@@ -51,6 +54,7 @@ namespace errera {
 	}
 
 	PhysicsBody::~PhysicsBody() {
+		
 		b2DestroyBody(_bodyId);
 	}
 
@@ -71,5 +75,9 @@ namespace errera {
 	}
 	void PhysicsBody::SetVelocity(const vec2& velocity) {
 		b2Body_SetLinearVelocity(_bodyId, to_b2(Physics::PixelToWorld(velocity)));
+	}
+
+	vec2 PhysicsBody::GetVelocity() {
+		return Physics::WorldToPixel(to_vec2(b2Body_GetLinearVelocity(_bodyId)));
 	}
 }

@@ -42,6 +42,9 @@ namespace errera {
 								Logger::Warning("Could not read tilemap layer texture: {}", value);
 							}
 						}
+						else if (equalsIqnoreCase(name, "Collision")) {
+							JSON_READ_NAME(propertyValue, "value", layer.hasCollision);
+						}
 					}
 				}
 
@@ -57,7 +60,7 @@ namespace errera {
 
 		// calculate tiles per row from texture size
 		vec2 textureSize = layer.texture->GetSize();
-		int tilesPerRow = (int)(textureSize.x / layer.width);
+		int tilesPerRow = (int)(textureSize.x / tilewidth);
 
 		int column = (tileId - 1) % tilesPerRow; // Tiled uses 1-based indexing
 		int row = (tileId - 1) / tilesPerRow;

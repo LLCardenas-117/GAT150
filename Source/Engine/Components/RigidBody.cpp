@@ -30,9 +30,7 @@ namespace errera {
 	void RigidBody::Update(float dt) {
 		owner->transform.position = _physicsBody->GetPosition();
 		owner->transform.rotation = math::radToDeg(_physicsBody->GetAngle());
-
-		//owner->transform.position += velocity * dt;
-		//velocity *= (1.0f / (1.0f + damping * dt));
+		velocity = _physicsBody->GetVelocity();
 	}
 
 	void RigidBody::ApplyForce(const vec2& force) {

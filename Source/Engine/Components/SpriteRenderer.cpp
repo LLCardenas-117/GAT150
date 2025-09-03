@@ -20,14 +20,6 @@ namespace errera {
 	}
 
 	void SpriteRenderer::Draw(Renderer& renderer) {
-		/*if (texture) {
-			renderer.DrawTexture(*texture,
-				owner->transform.position.x,
-				owner->transform.position.y,
-				owner->transform.rotation,
-				owner->transform.scale);
-		}*/
-
 		if (texture) {
 			if (textureRect.w > 0 && textureRect.h > 0) {
 				renderer.DrawTexture(*texture,
@@ -35,14 +27,16 @@ namespace errera {
 					owner->transform.position.x,
 					owner->transform.position.y,
 					owner->transform.rotation,
-					owner->transform.scale);
+					owner->transform.scale,
+					flipH);
 			}
 			else {
 				renderer.DrawTexture(*texture,
 					owner->transform.position.x,
 					owner->transform.position.y,
 					owner->transform.rotation,
-					owner->transform.scale);
+					owner->transform.scale,
+					flipH);
 			}
 		}
 
@@ -52,5 +46,6 @@ namespace errera {
 		Object::Read(value);
 
 		JSON_READ_NAME(value, "texture_name", textureName);
+		JSON_READ(value, flipH);
 	}
 }

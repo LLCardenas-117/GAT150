@@ -61,6 +61,7 @@ namespace errera {
 		// Load resource
 		res_t<T> resource = std::make_shared<T>();
 		if (resource->Load(filename, std::forward<Args>(args)...) == false) {
+			Logger::Info("RESOURCES/RESOURCEMANAGER.H LINE 65");
 			Logger::Error("Could not load resource: {}", filename);
 			return res_t<T>();
 		}

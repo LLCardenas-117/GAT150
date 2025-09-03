@@ -88,7 +88,7 @@ namespace errera {
 
 		JSON_READ(value, frame);
 
-		if (JSON_HAS(value, animaions) && JSON_GET(value, animations).IsArray()) {
+		if (JSON_HAS(value, animations) && JSON_GET(value, animations).IsArray()) {
 			for (auto& animatorValue : JSON_GET(value, animations).GetArray()) {
 				std::string name;
 				std::string textureAnimationName;

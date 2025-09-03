@@ -67,6 +67,9 @@ void PlatformerGame::Shutdown() {
 void PlatformerGame::SpawnEnemy() {
     auto enemy = errera::Instantiate("enemy");
     _scene->AddActor(std::move(enemy));
+
+    auto bat = errera::Instantiate("bat");
+    _scene->AddActor(std::move(bat));
 }
 
 void PlatformerGame::SpawnPlayer() {

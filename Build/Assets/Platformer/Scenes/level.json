@@ -20,6 +20,8 @@
       ]
     },
     {
+      "name": "ground_tilemap",
+      "tag": "ground",
       "persistent": true,
       "transform": {
         "position": [
