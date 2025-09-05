@@ -16,6 +16,12 @@ public:
 		GameOver
 	};
 
+	int player1Score = 0;
+	int player2Score = 0;
+	int round = 0;
+
+	std::string winner;
+
 public:
 	PlatformerGame() = default;
 
@@ -32,11 +38,12 @@ public:
 	void Shutdown() override;
 
 private:
-	void SpawnEnemy();
 
-	void SpawnPlayer();
+	void SpawnPlayers();
 
-	void SpawnRing();
+	void Winscreen();
+
+	void RoundAnnouncer();
 
 private:
 	GameState _gameState = GameState::Initialize;

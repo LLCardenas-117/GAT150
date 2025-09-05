@@ -1,0 +1,9 @@
+{
+  "texture_name": "textures/Girl_2_Walk.png",
+  "columns": 12,
+  "rows": 1,
+  "start_frame": 0,
+  "total_frames": 12,
+  "frames_per_second": 10,
+  "loop": true
+}

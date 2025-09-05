@@ -1,0 +1,9 @@
+{
+  "texture_name": "textures/Girl_1_Jump.png",
+  "columns": 10,
+  "rows": 1,
+  "start_frame": 0,
+  "total_frames": 10,
+  "frames_per_second": 10,
+  "loop": false
+}

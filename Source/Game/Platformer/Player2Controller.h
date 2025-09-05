@@ -2,19 +2,22 @@
 
 #include "Framework/Component.h"
 
-class PlayerController : public errera::Component, public errera::ICollidable {
+class Player2Controller : public errera::Component, public errera::ICollidable {
 public:
 	float speed = 0;
 	float maxSpeed = 0;
 	float jump = 0;
 	float fireTime = 0.2f;
 	float fireTimer = 0.0f;
+	int health = 3;
+	bool healthUpdate = false;
+	bool actionOver;
 
 	errera::RigidBody* _rigidBody{ nullptr };
 
 public:
-	PlayerController() = default;
-	CLASS_PROTOTYPE(PlayerController)
+	Player2Controller() = default;
+	CLASS_PROTOTYPE(Player2Controller)
 
 	void Start() override;
 

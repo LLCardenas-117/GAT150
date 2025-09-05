@@ -20,6 +20,12 @@
     <Filter Include="Source\Space">
       <UniqueIdentifier>{8f51d384-3b44-4075-a01b-7b88d29e8d78}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Platformer\Player_1_Animations">
+      <UniqueIdentifier>{ad1ae21d-2ebe-43d4-b24c-5d26dfd9b14d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Platformer\Player_2_Animations">
+      <UniqueIdentifier>{1cb1af59-7120-439d-9569-d2187851af5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -49,16 +55,10 @@
     <ClCompile Include="Platformer\PlatformerGame.cpp">
       <Filter>Source\Platformer</Filter>
     </ClCompile>
-    <ClCompile Include="Platformer\PlayerController.cpp">
+    <ClCompile Include="Platformer\Player1Controller.cpp">
       <Filter>Source\Platformer</Filter>
     </ClCompile>
-    <ClCompile Include="Platformer\EnemyController.cpp">
-      <Filter>Source\Platformer</Filter>
-    </ClCompile>
-    <ClCompile Include="Platformer\FlyingEnemyController.cpp">
-      <Filter>Source\Platformer</Filter>
-    </ClCompile>
-    <ClCompile Include="Platformer\Pickup.cpp">
+    <ClCompile Include="Platformer\Player2Controller.cpp">
       <Filter>Source\Platformer</Filter>
     </ClCompile>
   </ItemGroup>
@@ -87,16 +87,10 @@
     <ClInclude Include="Platformer\PlatformerGame.h">
       <Filter>Source\Platformer</Filter>
     </ClInclude>
-    <ClInclude Include="Platformer\PlayerController.h">
+    <ClInclude Include="Platformer\Player1Controller.h">
       <Filter>Source\Platformer</Filter>
     </ClInclude>
-    <ClInclude Include="Platformer\EnemyController.h">
-      <Filter>Source\Platformer</Filter>
-    </ClInclude>
-    <ClInclude Include="Platformer\FlyingEnemyController.h">
-      <Filter>Source\Platformer</Filter>
-    </ClInclude>
-    <ClInclude Include="Platformer\Pickup.h">
+    <ClInclude Include="Platformer\Player2Controller.h">
       <Filter>Source\Platformer</Filter>
     </ClInclude>
   </ItemGroup>
@@ -133,8 +127,29 @@
     <None Include="..\..\Build\Assets\Platformer\Tilemaps\tilemap.json">
       <Filter>Assets\Platformer</Filter>
     </None>
-    <None Include="..\..\Build\Assets\Platformer\Animations\bat_idle.json">
-      <Filter>Assets\Platformer</Filter>
+    <None Include="..\..\Build\Assets\Platformer\Animations\player1_idle.json">
+      <Filter>Assets\Platformer\Player_1_Animations</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Platformer\Animations\player1_jump.json">
+      <Filter>Assets\Platformer\Player_1_Animations</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Platformer\Animations\player1_walk.json">
+      <Filter>Assets\Platformer\Player_1_Animations</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Platformer\Animations\player1_attack.json">
+      <Filter>Assets\Platformer\Player_1_Animations</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Platformer\Animations\player2_idle.json">
+      <Filter>Assets\Platformer\Player_2_Animations</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Platformer\Animations\player2_jump.json">
+      <Filter>Assets\Platformer\Player_2_Animations</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Platformer\Animations\player2_walk.json">
+      <Filter>Assets\Platformer\Player_2_Animations</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Platformer\Animations\player2_attack.json">
+      <Filter>Assets\Platformer\Player_2_Animations</Filter>
     </None>
   </ItemGroup>
 </Project>

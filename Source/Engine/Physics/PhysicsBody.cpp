@@ -24,8 +24,8 @@ namespace errera {
 		shapeDef.density = def.density;
 		shapeDef.isSensor = def.isSensor;
 
-		if (def.isSensor) shapeDef.enableSensorEvents = true;
-		else shapeDef.enableContactEvents = true;
+		shapeDef.enableSensorEvents = true;
+		shapeDef.enableContactEvents = true;
 
 		// Create shape
 		b2Vec2 hsize = to_b2(Physics::PixelToWorld(size * transform.scale * 0.5f));

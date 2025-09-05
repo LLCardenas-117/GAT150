@@ -41,7 +41,7 @@ namespace errera {
 			_frameTimer = 1.0f / _currentAnimation.textureAnimation->GetFPS();
 			frame++;
 
-			// Check if animation is complete, lopp on last frame
+			// Check if animation is complete, loop on last frame
 			if (frame >= _currentAnimation.textureAnimation->GetTotalFrames()) {
 				if (_currentAnimation.textureAnimation->IsLooping()) {
 					frame = 0;
@@ -80,6 +80,16 @@ namespace errera {
 		if (_spriteRenderer) {
 			_spriteRenderer->texture = _currentAnimation.textureAnimation->GetTexture();
 			_spriteRenderer->textureRect = _currentAnimation.textureAnimation->GetFrameRect(frame);
+		}
+	}
+
+	bool Animator::Over(const std::string& name) {
+		if (equalsIqnoreCase(name, _currentAnimationName)) {
+			if (frame == _currentAnimation.textureAnimation->GetTotalFrames() - 1) {
+				return true;
+			}
+
+			return false;
 		}
 	}
 

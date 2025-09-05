@@ -9,10 +9,11 @@ namespace errera {
 	RigidBody::RigidBody(const RigidBody& other) {
 		bodyDef = other.bodyDef;
 		size = other.size;
+		scale = other.scale;
 
-		if (other._physicsBody) {
-			_physicsBody = std::make_unique<PhysicsBody>(*other._physicsBody);
-		}
+		//if (other._physicsBody) {
+		//	_physicsBody = std::make_unique<PhysicsBody>(*other._physicsBody);
+		//}
 	}
 
 	void RigidBody::Start() {

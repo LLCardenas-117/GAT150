@@ -1,83 +1,22 @@
 {
   "prototypes": [
     {
-      "name": "player",
-      "tag": "player",
+      "name": "player1",
+      "tag": "player1",
       "transform": {
         "position": [
-          640,
-          512
+          200,
+          830
         ],
         "rotation": 0,
-        "scale": 1
+        "scale": 2
       },
       "components": [
         {
-          "type": "playerController",
-          "speed": 850,
-          "maxSpeed": 1000,
-          "jump": 500
-        },
-        {
-          "type": "SpriteRenderer",
-          "texture_name": "textures/box.png"
-        },
-        {
-          "type": "RigidBody",
-          "gravityScale": 1.0,
-          "constrainAngle": true,
-          "shape": "capsule",
-          "scale": [ 1, 1 ]
-        }
-      ]
-    },
-    {
-      "name": "enemy",
-      "tag": "enemy",
-      "transform": {
-        "position": [
-          600,
-          512
-        ],
-        "rotation": 0,
-        "scale": 1
-      },
-      "components": [
-        {
-          "type": "enemyController",
-          "speed": 850,
-          "maxSpeed": 1000,
-          "jump": 500
-        },
-        {
-          "type": "SpriteRenderer",
-          "texture_name": "textures/enemy.png"
-        },
-        {
-          "type": "RigidBody",
-          "gravityScale": 1.0,
-          "constrainAngle": true,
-          "shape": "circle",
-          "scale": [ 1, 1 ]
-        }
-      ]
-    },
-    {
-      "name": "bat",
-      "tag": "enemy",
-      "transform": {
-        "position": [
-          100,
-          500
-        ],
-        "rotation": 0,
-        "scale": 3
-      },
-      "components": [
-        {
-          "type": "FlyingEnemyController",
-          "speed": 500,
-          "maxSpeed": 100
+          "type": "Player1Controller",
+          "speed": 1200,
+          "maxSpeed": 1200,
+          "jump": 120000
         },
         {
           "type": "SpriteRenderer"
@@ -86,19 +25,141 @@
           "type": "Animator",
           "animations": [
             {
-              "name": "idle",
-              "texture_animation": "animations/bat_idle.json"
+              "name": "idle1",
+              "texture_animation": "animations/player1_idle.json"
+            },
+            {
+              "name": "run1",
+              "texture_animation": "animations/player1_walk.json"
+            },
+            {
+              "name": "jump1",
+              "texture_animation": "animations/player1_jump.json"
+            },
+            {
+              "name": "attack1",
+              "texture_animation": "animations/player1_attack.json"
             }
           ]
         },
         {
           "type": "RigidBody",
+          "gravityScale": 1.0,
+          "constrainAngle": true,
+          "shape": "capsule",
+          "scale": [ 0.3, 1 ],
+          "size": [ 60, 125 ]
+        }
+      ]
+    },
+    {
+      "name": "player2",
+      "tag": "player2",
+      "transform": {
+        "position": [
+          1050,
+          830
+        ],
+        "rotation": 0,
+        "scale": 2
+      },
+      "components": [
+        {
+          "type": "Player2Controller",
+          "speed": 1200,
+          "maxSpeed": 1200,
+          "jump": 120000
+        },
+        {
+          "type": "SpriteRenderer",
+          "flipH": true
+        },
+        {
+          "type": "Animator",
+          "animations": [
+            {
+              "name": "idle2",
+              "texture_animation": "animations/player2_idle.json"
+            },
+            {
+              "name": "run2",
+              "texture_animation": "animations/player2_walk.json"
+            },
+            {
+              "name": "jump2",
+              "texture_animation": "animations/player2_jump.json"
+            },
+            {
+              "name": "attack2",
+              "texture_animation": "animations/player2_attack.json"
+            }
+          ]
+        },
+        {
+          "type": "RigidBody",
+          "gravityScale": 1.0,
+          "constrainAngle": true,
+          "shape": "capsule",
+          "scale": [ 0.3, 1 ],
+          "size": [ 60, 125 ]
+        }
+      ]
+    },
+    {
+      "name": "hitbox",
+      "lifespan": 0.25,
+      "components": [
+        {
+          "type": "RigidBody",
           "gravityScale": 0.0,
           "constrainAngle": true,
           "isSensor": true,
-          "shape": "circle",
-          "scale": [ 1, 1 ],
-          "size": [ 20, 20 ]
+          "shape": "capsule",
+          "scale": [ 1.5, 1.5 ],
+          "size": [ 75, 125 ]
+        }
+      ]
+    },
+    {
+      "name": "winscreen",
+      "persistent": true,
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 0.5
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer"
+        }
+      ]
+    },
+    {
+      "name": "health",
+      "scale": 0.1,
+      "components": [
+        {
+          "type": "SpriteRenderer"
+        }
+      ]
+    },
+    {
+      "name": "round",
+      "lifespan": 1,
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 0.5
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer"
         }
       ]
     }

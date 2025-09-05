@@ -24,6 +24,7 @@ namespace errera {
 		void Play(const std::string& name, bool resetFrame = true);
 		void Pause(bool pause) { _paused = pause; }
 		bool IsPaused() const { return _paused; }
+		bool Over(const std::string& name);
 
 		const std::string& GetCurrentAnimationName() const { return _currentAnimationName; }
 
